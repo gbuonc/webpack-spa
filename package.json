@@ -1,0 +1,37 @@
+{
+  "name": "webpack-spa",
+  "version": "1.0.0",
+  "description": "Test for offline Single Page App built with webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbuonc/webpack-spa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbuonc/webpack-spa/issues"
+  },
+  "homepage": "https://github.com/gbuonc/webpack-spa#readme",
+  "devDependencies": {
+    "appcache-webpack-plugin": "^1.2.1",
+    "bower": "^1.6.5",
+    "css-loader": "^0.23.0",
+    "file-loader": "^0.8.4",
+    "firebase-cli": "^1.2.0",
+    "firebase-tools": "^2.1.0",
+    "gulp": "^3.9.0",
+    "ractive-loader": "^0.5.6",
+    "script-loader": "^0.6.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.8",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "ractive": "^0.7.3",
+    "ractive-loader": "^0.5.6"
+  }
+}

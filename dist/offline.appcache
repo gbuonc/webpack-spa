@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# 4e023792bf7e82a78411
+
+index.html
+bundle.js
+
+CACHE:
+bundle.js
+
+NETWORK:
+*
+
+SETTINGS:
+prefer-online
