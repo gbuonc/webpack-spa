@@ -1,7 +1,20 @@
-require("./style.css");
+require("./assets/css/style.scss");
 require('script!zepto.js/dist/zepto.js');
 require('script!store.js/store.js');
 require('script!ractive/ractive.js');  
+
+var app ={
+    init: function(){
+        // hide splash page
+        setTimeout(function(){
+            $('.splash').hide();
+        }, 1000);
+    }
+};
+
+app.init();
+
+
 
 if (!store.enabled) {
     alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
@@ -27,7 +40,7 @@ $.getJSON('https://st40.ilfattoquotidiano.it/wp-content/uploads/app.json', funct
 function writeContent(response){
     var ractive = new Ractive({
         el: '#container',
-        template: require('./test.template'),
+        template: require('./templates/test.tpl'),
         data: response
     });
 }

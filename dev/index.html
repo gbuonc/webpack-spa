@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html manifest="offline.appcache">
     <head>
+        <title>FQ</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="192x192" href="app-icon.png">
+        <!-- android web app manifest -->
+        <link rel="manifest" href="manifest.json">
     </head>
     <body>
+        <div class="splash"></div>
         <div class="content">
             <div id='container'>
             </div>
         </div>
     <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
     </body>
-</html> 
+</html>
