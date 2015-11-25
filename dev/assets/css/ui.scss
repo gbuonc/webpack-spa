@@ -31,7 +31,7 @@
     position: absolute;
     z-index: 1;
     left:0;
-    top:30px;
+    top:35px;
     bottom:0px;
     width: 100%;
     overflow: hidden;
@@ -40,8 +40,11 @@
 .vertical-scroller-wrapper{
     float: left;
     padding: 0 15px 30px;
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
 }
 .vertical-scroller-content{
+    transform: translate3d(0,0,0);
     margin-bottom:30px;
     border-bottom:1px solid;
 }

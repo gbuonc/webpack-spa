@@ -1,17 +1,22 @@
+var app = require('../../config');
+
+require('script!swiper/dist/js/swiper.js');  
+require('script!ractive/ractive.js'); 
 require('script!velocity/velocity.js');
 require('script!fastclick/lib/fastclick.js');
 
 // prepare interface
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+// document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 FastClick.attach(document.body);
 
+console.log(app);
 var ui = {
     init: function(){
         // write shell to canvas
         var ractive = new Ractive({
             el: '#main-content',
             template: require('../../templates/shell.tpl'),
-            data: ''
+            data: app.ui
         });
         var activeTab = 0;
         var $tabPos = $('.currentBar');
@@ -26,7 +31,7 @@ var ui = {
         };
         var navTabs = new Swiper('.tab-navigation', {
             slidesPerView: 'auto',
-            touchRatio: 0.2,
+            touchRatio: 1.5,
             onTap(swiper, event){
                 mainTabs.slideTo(swiper.clickedIndex);
             }
@@ -48,7 +53,7 @@ var ui = {
                     translateX: position+offset+'px',
                     width: w
                 }, {
-                    duration: 100,
+                    duration: 500,
                     complete: function(){
                         $(currentSlide).addClass('active');
                         $tabPos.hide();
