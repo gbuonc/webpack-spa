@@ -1,16 +1,9 @@
 @import 'colors.scss';
 
-*{position: relative;}
+*{position: relative; box-sizing:border-box;}
 html, body{margin: 0; padding: 0; height: 100%;}
-body {
-    font-family: sans-serif;
-    background: $bg;
-}
-.content{padding: 15px;}
-.splash{
-    background: $bg url('../img/splash.png') center no-repeat;
-    background-size: 200px auto;
-    position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    z-index: 2;
-}
+body {font-family: sans-serif; background: $bg;}
+.content{padding: 15px; height: 100%;}
+
+// user interface
+@import 'ui.scss';

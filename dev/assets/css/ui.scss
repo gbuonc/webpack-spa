@@ -1,0 +1,48 @@
+// loading page
+.splash{
+    background: $bg url('../img/splash.png') center no-repeat;
+    background-size: 200px auto;
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    z-index: 3;
+}
+
+// navigation tabs
+.tab-navigation{
+    position: absolute;
+    left:0;
+    top: 0px;
+    height: 35px;
+    width: 100%;
+    background: #efefef;
+    font-size: 15px;
+    z-index: 2;
+    overflow: hidden;
+}
+.tab-toggle{
+    width: auto;
+    padding: 0 25px;
+    background: #ddd;
+    line-height: 35px;
+    border-bottom:3px solid #ddd;
+}
+.tab-toggle.active{border-bottom:3px solid red;}
+.tabs-scroller{
+    position: absolute;
+    z-index: 1;
+    left:0;
+    top:30px;
+    bottom:0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.vertical-scroller-wrapper{
+    float: left;
+    padding: 0 15px 30px;
+}
+.vertical-scroller-content{
+    margin-bottom:30px;
+    border-bottom:1px solid;
+}
+.currentBar{height: 3px; width: 100px; background: red; position: absolute; bottom:0; left:0; z-index: 4;}

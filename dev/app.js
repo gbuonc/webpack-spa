@@ -1,8 +1,19 @@
+require("swiper/dist/css/swiper.css");
 require("./assets/css/style.scss");
 require('script!zepto.js/dist/zepto.js');
 require('script!store.js/store.js');
 require('script!ractive/ractive.js');  
+require('script!iscroll/build/iscroll.js');
+require('script!ractive/ractive.js');  
+require('script!swiper/dist/js/swiper.js');  
 
+// 1 setup app UI -------------------------------
+require('./assets/js/shell.js');
+
+// 2 populate initial content -------------------
+
+
+// 3 run forrest, run ---------------------------
 var app ={
     init: function(){
         // hide splash page
@@ -35,6 +46,14 @@ $.getJSON('https://st40.ilfattoquotidiano.it/wp-content/uploads/app.json', funct
     console.log(data['Primo Piano'][0]);
     store.set('latest', data);
     writeContent(data['Primo Piano'][0]);
+});
+
+$('.vertical-scroller-wrapper').each(function(i){
+    var scrollers={};
+    var id = $(this).attr('id');
+    scrollers[i] = new IScroll('#'+id, {
+        click: true
+    });
 });
 
 function writeContent(response){
