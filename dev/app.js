@@ -1,7 +1,7 @@
 require("swiper/dist/css/swiper.css");
 require("./assets/css/style.scss");
-require('script!zepto.js/dist/zepto.js');
-require('script!store.js/store.js');
+require('script!zepto.js/dist/zepto.min.js');
+require('script!store.js/store.min.js');
 
 var app = require('./config');
 

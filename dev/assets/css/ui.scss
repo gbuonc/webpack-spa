@@ -26,6 +26,7 @@
     line-height: 35px;
     border-bottom:3px solid #ddd;
 }
+
 .tab-toggle.active{border-bottom:3px solid red;}
 .tabs-scroller{
     position: absolute;
@@ -36,7 +37,6 @@
     width: 100%;
     overflow: hidden;
 }
-
 .vertical-scroller-wrapper{
     float: left;
     padding: 0 15px 30px;

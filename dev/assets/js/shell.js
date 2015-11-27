@@ -1,15 +1,13 @@
 var app = require('../../config');
 
-require('script!swiper/dist/js/swiper.js');  
-require('script!ractive/ractive.js'); 
-require('script!velocity/velocity.js');
+require('script!swiper/dist/js/swiper.min.js');  
+require('script!ractive/ractive.min.js'); 
+require('script!velocity/velocity.min.js');
 require('script!fastclick/lib/fastclick.js');
 
 // prepare interface
 // document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 FastClick.attach(document.body);
-
-console.log(app);
 var ui = {
     init: function(){
         // write shell to canvas
@@ -26,46 +24,47 @@ var ui = {
         var initTabs = function(){
             var currentSlide = navTabs.slides[activeTab];
             var w = currentSlide.clientWidth;
+            var tabColor = $(currentSlide).attr('rel');
             $tabPos.css('width',w+'px').hide();
-            $(currentSlide).addClass('active');
+            $(currentSlide).addClass('active').css('borderColor', tabColor);
         };
         var navTabs = new Swiper('.tab-navigation', {
             slidesPerView: 'auto',
-            touchRatio: 1.5,
-            onTap(swiper, event){
-                mainTabs.slideTo(swiper.clickedIndex);
-            }
+            touchRatio: 1.5
         });
         var mainTabs = new Swiper ('.tabs-scroller',{
-            threshold:30,
-            onInit(swiper){
-                initTabs();
-            },
-            onTransitionEnd(swiper){
-                var currentSlide = navTabs.slides[swiper.activeIndex];
-                var offset = navTabs.translate;
-                var w = currentSlide.clientWidth;
-                var position = currentSlide.offsetLeft;
-                // animate active tabs placeholder
-                $navTabs.removeClass('active');
-                $tabPos.show().velocity({
-                    translateZ: 0, // Force HA by animating a 3D property
-                    translateX: position+offset+'px',
-                    width: w
-                }, {
-                    duration: 500,
-                    complete: function(){
-                        $(currentSlide).addClass('active');
-                        $tabPos.hide();
-                    }
-                });
-            }
+            threshold:50
+        });
+        navTabs.on('onTap', function(swiper, event){
+            mainTabs.slideTo(swiper.clickedIndex);
+        });
+        mainTabs.on('onTransitionEnd', function(swiper){
+            var currentSlide = navTabs.slides[swiper.activeIndex];
+            var tabColor = $(currentSlide).attr('rel');
+            var offset = navTabs.translate;
+            var w = currentSlide.clientWidth;
+            var position = currentSlide.offsetLeft;
+            // animate active tabs placeholder
+            $navTabs.removeClass('active').css('borderColor','transparent');
+            $tabPos.show().velocity({
+                translateZ: 0, // Force HA by animating a 3D property
+                translateX: position+offset+'px',
+                width: w,
+                backgroundColor: tabColor
+            }, {
+                duration: 300,
+                complete: function(){
+                    $(currentSlide).addClass('active').css('borderColor', tabColor);
+                    $tabPos.hide();
+                    ractive.set({activeTab : swiper.activeIndex});
+                }
+            });
         });
         // link nav tabs to main tabs
         mainTabs.params.control = navTabs;
+        initTabs();
     }
 };
-
 ui.init();
 
 

@@ -1,9 +1,8 @@
 var app = require('../../config');
-require('script!ractive/ractive.js'); 
+require('script!ractive/ractive.min.js'); 
 // require('script!iscroll/build/iscroll.js'); let's see...
 
 function writeContent(content, id){
-    console.log('#tab_'+id);
     var ractive = new Ractive({
         el: '#tab_'+id,
         template: require('../../templates/test.tpl'),
@@ -12,7 +11,6 @@ function writeContent(content, id){
 }
 
 $(app.ui.tabs).each(function(i){
-    console.log(app.ui.tabs[i]);
     var tab = app.ui.tabs[i];
     var storageKey = 'content_'+tab.id;
     var latestTabContent = store.get(storageKey);
@@ -30,18 +28,13 @@ $(app.ui.tabs).each(function(i){
 
     // first get content from localstorage
     if(latestTabContent){}
-
-    console.log(store.get(storageKey));
     // next try to get latest content from network
     if(tab.id === 'FQ'){
         $.getJSON('https://st40.ilfattoquotidiano.it/wp-content/uploads/app.json', function(data){
-            console.log('FROM NETWORK');
-            console.log(data['Primo Piano'][0]);
             store.set(storageKey, data);
             writeContent(data['Primo Piano'][0], tab.id);
         });
     }else{
-        console.log('get '+tab.id+' content from localstorage');
         store.set(storageKey, dummyContent);
         writeContent(dummyContent, tab.id);
     }
