@@ -21,10 +21,11 @@
 }
 .tab-toggle{
     width: auto;
-    padding: 0 25px;
+    padding: 0 20px;
     background: #ddd;
     line-height: 35px;
     border-bottom:3px solid #ddd;
+    font-family: georgia;
 }
 
 .tab-toggle.active{border-bottom:3px solid red;}
@@ -39,7 +40,6 @@
 }
 .vertical-scroller-wrapper{
     float: left;
-    padding: 0 15px 30px;
     -webkit-overflow-scrolling: touch;
     overflow: scroll;
 }

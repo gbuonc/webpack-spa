@@ -1,9 +1,10 @@
 @import 'colors.scss';
-
+@import 'fonts.css';
 *{position: relative; box-sizing:border-box;}
 html, body{margin: 0; padding: 0; height: 100%;}
-body {font-family: sans-serif; background: $bg;}
-.content{padding: 15px; height: 100%;}
+body {font-family: 'open sans', sans-serif; background: $bg;}
+.content{height: 100%;}
+
 
 // user interface
 @import 'ui.scss';

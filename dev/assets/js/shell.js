@@ -37,9 +37,18 @@ var ui = {
         });
         navTabs.on('onTap', function(swiper, event){
             mainTabs.slideTo(swiper.clickedIndex);
+            animateTabs(swiper.clickedIndex);
+        });
+        mainTabs.on('onTransitionStart', function(swiper){
+            console.log(swiper.snapIndex);
+            animateTabs(swiper.snapIndex);
         });
         mainTabs.on('onTransitionEnd', function(swiper){
-            var currentSlide = navTabs.slides[swiper.activeIndex];
+            navTabs.slideTo(swiper.activeIndex);
+            // animateTabs(swiper.activeIndex);
+        });
+        var animateTabs = function(index){
+            var currentSlide = navTabs.slides[index];
             var tabColor = $(currentSlide).attr('rel');
             var offset = navTabs.translate;
             var w = currentSlide.clientWidth;
@@ -56,17 +65,13 @@ var ui = {
                 complete: function(){
                     $(currentSlide).addClass('active').css('borderColor', tabColor);
                     $tabPos.hide();
-                    ractive.set({activeTab : swiper.activeIndex});
+                    ractive.set({activeTab : index});
                 }
             });
-        });
+        };
         // link nav tabs to main tabs
-        mainTabs.params.control = navTabs;
+        // mainTabs.params.control = navTabs;
         initTabs();
     }
 };
 ui.init();
-
-
-
-

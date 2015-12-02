@@ -1,5 +1,6 @@
 var webpack = require('webpack');
-var AppCachePlugin = require('appcache-webpack-plugin');
+// var AppCachePlugin = require('appcache-webpack-plugin');
+// var OfflinePlugin = require('offline-plugin');
 module.exports = {
   context: __dirname + "/dev",
   entry: {
@@ -13,12 +14,13 @@ module.exports = {
   },
   module: {
       loaders: [
-          { test: /\.html$/,          loader: 'file?name=[name].[ext]',},
-          //{ test: /\.json$/,          loader: 'file?name=[name].[ext]',},
-          { test: /\.css$/,           loader: 'style!css' },
-          { test: /\.scss$/,          loader: 'style!css!autoprefixer!sass'},
-          { test: /\.(png|jpg)$/,     loader: 'url?limit=25000'},
-          { test: /\.tpl$/,           loader: 'ractive' }
+          { test: /\.html$/,                                  loader: 'file?name=[name].[ext]',},
+          //{ test: /\.json$/,                                loader: 'file?name=[name].[ext]',},
+          { test: /\.css$/,                                   loader: 'style!css' },
+          { test: /\.scss$/,                                  loader: 'style!css!autoprefixer!sass'},
+          { test: /\.(png|jpg)$/,                             loader: 'url?limit=25000'},
+          { test: /\.tpl$/,                                   loader: 'ractive' },
+          { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,  loader : 'file-loader'}
       ]
   },
   resolve: {
@@ -34,10 +36,24 @@ module.exports = {
         warnings: false
       }
     }),
-    new AppCachePlugin({
-      cache: ['bundle.js'],
-      settings: ['prefer-online'],
-      output: './manifest.appcache'
-    })
+    // new OfflinePlugin({
+    //   // All options are optional
+    //   caches: 'all',
+    //   scope: '/',
+    //   updateStrategy: 'all',
+
+    //   ServiceWorker: {
+    //     output: 'sw.js'
+    //   },
+
+    //   AppCache: {
+    //     directory: '/'
+    //   }
+    // })
+    // new AppCachePlugin({
+    //   cache: ['bundle.js'],
+    //   settings: ['prefer-online'],
+    //   output: './manifest.appcache'
+    // })
   ]
 };
