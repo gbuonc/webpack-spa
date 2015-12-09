@@ -1,5 +1,4 @@
 var app = require('../../config');
-
 require('script!swiper/dist/js/swiper.min.js');  
 require('script!ractive/ractive.min.js'); 
 require('script!velocity/velocity.min.js');

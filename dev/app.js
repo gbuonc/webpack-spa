@@ -1,24 +1,16 @@
-require("swiper/dist/css/swiper.css");
 require("./assets/css/style.scss");
 require('script!zepto.js/dist/zepto.min.js');
-require('script!store.js/store.min.js');
+require('script!zepto.js/src/callbacks.js');
+require('script!zepto.js/src/deferred.js');
+require('script!offline/offline.min.js');
+require('script!localforage/dist/localforage.min.js');
+
+console.log('----------------------\nFQ WebApp BUILD VERSION '+ Date.now()+'\n----------------------');
 
 var app = require('./config');
+Offline.options.checkOnLoad = true;
+Offline.on('down', function(){
+    alert('offline :-(');
+});
 
-// 1 setup app UI -------------------------------
-require('./assets/js/shell');
-
-// 2 populate initial content -------------------
-require('./assets/js/content.js');
-
-// 3 run forrest, run ---------------------------
-app.init = function(){
-    // hide splash page
-    setTimeout(function(){
-        $('.splash').hide();
-    }, 1000);
-    if (!store.enabled) {
-        alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
-    }
-};
-app.init();
+require('./assets/js/bootstrap.js');

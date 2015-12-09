@@ -1,10 +1,18 @@
+// common configs
 @import 'colors.scss';
 @import 'fonts.css';
+// offline.js components
+// @import '../../../bower_components/offline/themes/offline-theme-default.css';
+// @import '../../../bower_components/offline/themes/offline-theme-default-indicator.css';
+// @import '../../../bower_components/offline/themes/offline-language-english.css';
+// @import '../../../bower_components/offline/themes/offline-language-english-indicator.css';
+// swiper.js
+@import '../../../bower_components/swiper/dist/css/swiper.css';
+
 *{position: relative; box-sizing:border-box;}
 html, body{margin: 0; padding: 0; height: 100%;}
 body {font-family: 'open sans', sans-serif; background: $bg;}
 .content{height: 100%;}
-
 
 // user interface
 @import 'ui.scss';
