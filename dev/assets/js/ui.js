@@ -1,7 +1,6 @@
 var app = require('../../config');
+var tabs = require('./tabs.js');
 require('script!swiper/dist/js/swiper.min.js');  
-require('script!ractive/ractive.min.js'); 
-require('script!velocity/velocity.min.js');
 require('script!fastclick/lib/fastclick.js');
 
 var ui = {
@@ -11,6 +10,7 @@ var ui = {
         var $tabPos = $('.currentBar');
         var $navTabs = $('.tab-toggle');
         setTimeout(function(){
+            // init carousels
             var navTabs = new Swiper('.tab-navigation', {
                 slidesPerView: 'auto',
                 touchRatio: 1.5
@@ -19,48 +19,14 @@ var ui = {
                 threshold:50
             });
 
-            // init tabs
-            var currentSlide = navTabs.slides[activeTab];
-            var w = currentSlide.clientWidth;
-            var tabColor = $(currentSlide).attr('rel');
-            $tabPos.css('width',w+'px').hide();
-            $(currentSlide).addClass('active').css('borderColor', tabColor);
-
-
             navTabs.on('onTap', function(swiper, event){
                 mainTabs.slideTo(swiper.clickedIndex);
-                animateTabs(swiper.clickedIndex);
-            });
-            
-            mainTabs.on('onTransitionStart', function(swiper){
-                animateTabs(swiper.snapIndex);
+                tabs.ractive.set('tabs.'+swiper.clickedIndex+'.active', true);
             });
             mainTabs.on('onTransitionEnd', function(swiper){
                 navTabs.slideTo(swiper.activeIndex);
-                // animateTabs(swiper.activeIndex);
+                tabs.ractive.set('tabs.'+swiper.activeIndex+'.active', true);
             });
-            var animateTabs = function(index){
-                var currentSlide = navTabs.slides[index];
-                var tabColor = $(currentSlide).attr('rel');
-                var offset = navTabs.translate;
-                var w = currentSlide.clientWidth;
-                var position = currentSlide.offsetLeft;
-                // animate active tabs placeholder
-                $navTabs.removeClass('active').css('borderColor','transparent');
-                $tabPos.show().velocity({
-                    translateZ: 0, // Force HA by animating a 3D property
-                    translateX: position+offset+'px',
-                    width: w,
-                    backgroundColor: tabColor
-                }, {
-                    duration: 300,
-                    complete: function(){
-                        $(currentSlide).addClass('active').css('borderColor', tabColor);
-                        $tabPos.hide();
-                        // ractive.set({activeTab : index});
-                    }
-                });
-            };
         },0);
     }
 };

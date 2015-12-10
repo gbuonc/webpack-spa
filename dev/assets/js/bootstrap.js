@@ -59,6 +59,7 @@ function transformTabs(issue){
         tmpObj.id = tmpObj.label.split(' ').join('_');
         // generate random color, for fun :-)
         tmpObj.color = '#'+(Math.random().toString(16) + '0000000').slice(2, 8);
+        tmpObj.active = (i === app.ui.activeTab) ? true : false;
         app.ui.tabs.push(tmpObj);
     }
 }

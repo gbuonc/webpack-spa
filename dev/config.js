@@ -3,6 +3,10 @@ var app = {
     contentEndPoint : 'https://st40.ilfattoquotidiano.it/wp-content/uploads/app.json',
     ui:{
         activeTab : 0,
+        currentBar:{
+            width:0,
+            left:0,
+        }, 
         tabs:[]
     }
 };
