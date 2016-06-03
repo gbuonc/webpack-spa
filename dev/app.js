@@ -33,6 +33,7 @@ if ('serviceWorker' in navigator) {
     console.error('Error during service worker registration:', e);
   });
 }
+
 // -----------------------------------------------------------------------------------------------
 require('script!zepto.js/dist/zepto.min.js');
 require('script!zepto.js/src/callbacks.js');
@@ -44,10 +45,10 @@ console.log('----------------------\nFQ WebApp BUILD VERSION '+ Date.now()+'\n--
 var app = require('./config');
 var utils = require('./assets/js/utils.js');
 Offline.options.checkOnLoad = true;
-Offline.on('down', function(){
+Offline.on('confirmed-down', function(){
     utils.showOfflineAlert();
 });
-Offline.on('up', function(){
+Offline.on('confirmed-up', function(){
     utils.hideOfflineAlert();
 });
 require('./assets/js/bootstrap.js');

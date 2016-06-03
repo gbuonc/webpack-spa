@@ -128,12 +128,12 @@ gulp.task('default', ['serve', 'build']);
 
 // build
 gulp.task('build', function(callback) {
-    runSequence('clean','img', 'scss', 'webpack', 'move', 'generate-service-worker');
+    runSequence('clean','img', 'scss', 'webpack', 'move','generate-service-worker');
 });
-
 // local server
 gulp.task('serve', function () {
     gulp.task('build');
+    gulp.task('generate-service-worker');
   browserSync.init({
     server: {
       baseDir: ['dist']

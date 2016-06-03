@@ -3,9 +3,7 @@ var utils = require('./utils.js');
 var ui = require('./ui.js');
 var tabs = require('./tabs.js');
 var contents = require('./contents.js');
-
 var latestIssue;
-
 //get latest local content (promise)
 var offlineReq = localforage.getItem('latest');
 //get latest online content (wrap in promise)
@@ -15,6 +13,7 @@ var onlineReq = Promise.resolve(
         url: app.contentEndPoint
     })
 );
+
 // assume we are offline, so as soon as local storage returns, generate html
 offlineReq.then(function(resp){
     if(resp){
