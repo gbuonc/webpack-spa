@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>FQ</title>
+        <title>Il Fatto Quotidiano Progressive WebApp</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="mobile-web-app-capable" content="yes">
-        <link rel="icon" sizes="192x192" href="app-icon.png">
-        <!-- android web app manifest -->
-        <link rel="manifest" href="manifest.json">
+        <meta name="theme-color" content="#de0000">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="stylesheet" href="/static/css/style.css">
     </head>
     <body>
-        <div class="splash"></div>
         <div class="content" id="main-content">
             <div class="main-tabs" id="main-tabs"></div>
             <div id="tabs-scroller" class="tabs-scroller swiper-container"></div>
         </div>
+        <div class="debug-connection">Offline</div>
         <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
     </body>
 </html>

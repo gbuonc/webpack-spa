@@ -1,6 +1,6 @@
 var app = require('../../config');
 var tabs = require('./tabs.js');
-require('script!swiper/dist/js/swiper.min.js');  
+require('script!swiper/dist/js/swiper.min.js');
 require('script!fastclick/lib/fastclick.js');
 
 var ui = {
@@ -18,7 +18,6 @@ var ui = {
             var mainTabs = new Swiper ('.tabs-scroller',{
                 threshold:50
             });
-
             navTabs.on('onTap', function(swiper, event){
                 mainTabs.slideTo(swiper.clickedIndex);
                 tabs.ractive.set('tabs.'+swiper.clickedIndex+'.active', true);

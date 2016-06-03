@@ -16,8 +16,8 @@ module.exports = {
       loaders: [
           { test: /\.html$/,                                  loader: 'file?name=[name].[ext]',},
           //{ test: /\.json$/,                                loader: 'file?name=[name].[ext]',},
-          { test: /\.css$/,                                   loader: 'style!css' },
-          { test: /\.scss$/,                                  loader: 'style!css!autoprefixer!sass'},
+          //{ test: /\.css$/,                                   loader: 'style!css' },
+          //{ test: /\.scss$/,                                  loader: 'style!css!autoprefixer!sass'},
           { test: /\.(png|jpg)$/,                             loader: 'url?limit=25000'},
           { test: /\.tpl$/,                                   loader: 'ractive' },
           { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,  loader : 'file-loader'}

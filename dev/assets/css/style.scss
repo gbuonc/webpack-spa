@@ -1,6 +1,6 @@
 // common configs
-@import 'colors.scss';
-@import 'fonts.css';
+@import '_colors.scss';
+@import '_fonts.css';
 // offline.js components
 // @import '../../../bower_components/offline/themes/offline-theme-default.css';
 // @import '../../../bower_components/offline/themes/offline-theme-default-indicator.css';
@@ -11,7 +11,8 @@
 
 *{position: relative; box-sizing:border-box;}
 html, body{margin: 0; padding: 0; height: 100%;}
-body {font-family: 'open sans', sans-serif; background: $bg;}
+body {font-family: 'open sans', sans-serif; background: white;}
 .content{height: 100%;}
+h1{font-family: 'open sans condensed'; color:red; line-height: 1;}
 // user interface
-@import 'ui.scss';
+@import '_ui.scss';

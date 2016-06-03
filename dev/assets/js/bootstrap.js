@@ -39,9 +39,9 @@ function bootstrap(issue){
     transformContents(issue);
     tabs.init();
     contents.init();
-    // show interface 
+    // show interface
     ui.init();
-    utils.hideSplash();
+    // utils.hideSplash();
     localforage.setItem('latest', issue);
 }
 function transformTabs(issue){
@@ -70,5 +70,3 @@ function transformContents(issue){
         app.ui.tabs[i].contents=issue[sections[i]];
     }
 }
-
-
