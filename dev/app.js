@@ -5,8 +5,8 @@ require('./assets/js/sw-init.js');
 require('script!zepto.js/dist/zepto.min.js');
 require('script!zepto.js/src/callbacks.js');
 require('script!zepto.js/src/deferred.js');
-require('script!zepto.js/dist/zepto.min.js');
 require('script!lazysizes/lazysizes.min.js');
+require('script!lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js');
 require('script!offline/offline.min.js');
 require('script!localforage/dist/localforage.min.js');
 

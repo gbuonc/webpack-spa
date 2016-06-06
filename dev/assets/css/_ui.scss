@@ -1,56 +1,49 @@
-// loading page
-.splash{
-    background: $bg url('../img/splash.png') center no-repeat;
-    background-size: 200px auto;
-    position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    z-index: 3;
-}
-
 // navigation tabs
 .header-logo{
     position: absolute;
     top:0;
     left:0;
     width: 40px;
-    background: #de0000;
+    background: #000;
     height: auto;
     z-index: 2;
     img{width: 30px; height: auto; margin: 2px;}
 }
 .tab-navigation{
-    position: absolute;
+    position: fixed;
     left:0;
     top: 0px;
     height: 35px;
     width: 100%;
-    background: #de0000;
+    background: #000;
     font-size: 15px;
-    z-index: 2;
+    z-index: 4;
     overflow: hidden;
     padding-left: 40px;
+    box-shadow: 0px 3px 8px #333;
 }
 .tab-toggle{
     font-family: 'open sans', sans-serif;;
     width: auto;
     padding: 0 20px;
-    background: #de0000;
+    background: #000;
     line-height: 35px;
-    border-bottom:3px solid #de0000;
+    border-bottom:3px solid #000;
     color: white;
     font-size: 12px;
     text-transform: uppercase;
 }
 
-.tab-toggle.active{border-bottom:3px solid black;}
+.tab-toggle.active{border-bottom:3px solid white;}
 .tabs-scroller{
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     left:0;
     top:35px;
     bottom:0px;
     width: 100%;
     overflow: hidden;
+    background: #fff;
 }
 .vertical-scroller-wrapper{
     float: left;
@@ -77,3 +70,29 @@
     color: red;
     border: 2px solid red;
 }
+
+// NEWSLIST ----
+.newslist-block{
+    position: relative;
+    min-height: 180px;
+    /* background placeholder */
+    background: #de0000 url('../img/icon.png') center no-repeat;
+    background-size: cover;
+    border-bottom: 2px solid #ddd;
+    .title-wrapper{
+        position: absolute; bottom:0; left:0; right:0; min-height: 120px;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%) no-repeat;
+    }
+    h1{
+        position: absolute; bottom:7px; left:7px; right:7px;
+        margin: 0; font-size: 20px;
+        & > a {color:#fff; text-decoration: none; display: block; margin-bottom: 6px;}
+        span{display: block; color: #fff ;font-family: 'open sans'; font-size: 12px; text-transform: uppercase;}
+    }
+}
+
+// ARTICLE DETAIL
+.article-detail{position: absolute; top:35px; bottom:0; left:0%; right:0; padding: 15px; overflow: scroll;}
+.article-content{position: relative;}
+.post-kicker{text-transform: uppercase;}
+.article-body{font-family: georgia; font-size: 16px;}

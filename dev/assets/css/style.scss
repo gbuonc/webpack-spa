@@ -20,7 +20,8 @@
 *{position: relative; box-sizing:border-box;}
 html, body{margin: 0; padding: 0; height: 100%;}
 body {font-family: 'open sans', sans-serif; background: white;}
-.content{height: 100%;}
-h1{font-family: 'open sans', sans-serif; color:red; line-height: 1;}
+.content{height: 100%; overflow: hidden;}
+img{width: 100%; height: auto;}
+h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight: normal;}
 // user interface
 @import '_ui.scss';

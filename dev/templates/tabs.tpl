@@ -4,9 +4,8 @@
     </div>
     <div class="swiper-wrapper">
         {{#tabs}}
-        <div class="tab-toggle swiper-slide {{active ? 'active' : '' }}" rel="{{color}}" on-click="setActive">{{{label}}}</div>
+        <div class="tab-toggle swiper-slide {{active ? 'active' : '' }}" on-click="showArticleList">{{{label}}}</div>
         {{/}}
         <span class="currentBar" style="width:{{currentBar.width}}px; left:{{currentBar.left}}px; background:#000;"></span>
     </div>
-
 </div>

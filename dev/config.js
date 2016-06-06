@@ -6,7 +6,9 @@ var app = {
         currentBar:{
             width:0,
             left:0,
-        }, 
+        },
+        // Cache DOM nodes
+        articleList: document.getElementById('tabs-scroller'),
         tabs:[]
     }
 };

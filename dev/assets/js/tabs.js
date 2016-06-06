@@ -1,6 +1,5 @@
 var app = require('../../config');
-require('script!ractive/ractive.min.js'); 
-
+require('script!ractive/ractive.min.js');
 var tabs = {
     init: function(){
         tabs.ractive = new Ractive({
@@ -8,6 +7,10 @@ var tabs = {
             template: require('../../templates/tabs.tpl'),
             data: app.ui
         });
+        tabs.ractive.on('showArticleList', function(e){
+            // show article list if previously hidden
+            app.ui.articleList.style.display ='';
+        })
         // observe active tab state
         tabs.ractive.observe('tabs.*.active', function(newVal, oldVal, keyPath){
             tabs.ractive.set('tabs.*.active', false);

@@ -1,9 +1,14 @@
+
 var app = require('../../config');
 var utils = require('./utils.js');
 var ui = require('./ui.js');
 var tabs = require('./tabs.js');
 var contents = require('./contents.js');
 var latestIssue;
+
+
+
+
 //get latest local content (promise)
 var offlineReq = localforage.getItem('latest');
 //get latest online content (wrap in promise)
@@ -61,6 +66,7 @@ function transformTabs(issue){
         tmpObj.active = (i === app.ui.activeTab) ? true : false;
         app.ui.tabs.push(tmpObj);
     }
+    console.log(app.ui.tabs);
 }
 function transformContents(issue){
     var sections=Object.keys(issue);
