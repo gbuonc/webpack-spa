@@ -116,6 +116,17 @@ gulp.task('generate-service-worker', function(callback) {
   swPrecache.write(('dist/service-worker.js'), {
     staticFileGlobs: ['dist/static/**/*.*', 'dist/index.html', 'dist/bundle.js'],
     stripPrefix: 'dist/',
+    runtimeCaching: [{
+      urlPattern: /\.jpg$/,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 100,
+          name: 'articles-cache',
+          debug: true
+        }
+      }
+    }],
     verbose:true
   }, callback);
 });
