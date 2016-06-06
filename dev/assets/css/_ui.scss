@@ -31,6 +31,7 @@
     padding-left: 40px;
 }
 .tab-toggle{
+    font-family: 'open sans', sans-serif;;
     width: auto;
     padding: 0 20px;
     background: #de0000;
@@ -39,7 +40,6 @@
     color: white;
     font-size: 12px;
     text-transform: uppercase;
-    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .tab-toggle.active{border-bottom:3px solid black;}

@@ -1,6 +1,6 @@
 // common configs
 @import '_colors.scss';
-@import '_fonts.css';
+// @import '_fonts.css'; fonts embedded in css
 // offline.js components
 // @import '../../../bower_components/offline/themes/offline-theme-default.css';
 // @import '../../../bower_components/offline/themes/offline-theme-default-indicator.css';
@@ -9,10 +9,18 @@
 // swiper.js
 @import '../../../bower_components/swiper/dist/css/swiper.css';
 
+@font-face {
+    font-family: 'open sans';
+    src: url('../fonts/open-sans-condensed/bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 *{position: relative; box-sizing:border-box;}
 html, body{margin: 0; padding: 0; height: 100%;}
 body {font-family: 'open sans', sans-serif; background: white;}
 .content{height: 100%;}
-h1{font-family: 'open sans condensed'; color:red; line-height: 1;}
+h1{font-family: 'open sans', sans-serif; color:red; line-height: 1;}
 // user interface
 @import '_ui.scss';

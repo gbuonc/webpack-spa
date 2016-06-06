@@ -83,7 +83,7 @@ Cache.prototype.addAll||(Cache.prototype.addAll=function(t){function e(t){this.n
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["bundle.js","5e24842ece157955544f6c36e6956fcb"],["index.html","a052a10fb1355a4a081bd2c62cd055ef"],["static/css/rev-manifest.json","d6c6c42fec0d32738b50276d1e634d21"],["static/css/style-e778dae57d.css","e778dae57d7cf0839348f2d31cce3f21"],["static/css/style.css","e778dae57d7cf0839348f2d31cce3f21"],["static/img/icon.png","9bfcd1695e047151ff9be6806af7ab9e"],["static/img/splash.png","5f9a623363f66720ad487fcb2d908919"]];
+var PrecacheConfig = [["bundle.js","5e24842ece157955544f6c36e6956fcb"],["index.html","a052a10fb1355a4a081bd2c62cd055ef"],["static/css/style.css","5a2ff050f5af4e0079a02cdf5b271b26"],["static/fonts/open-sans-condensed/bold.woff","cc97fba7940eb46fa9f68dce88999d87"],["static/fonts/open-sans-condensed/light-italic.woff","846a381b14ff05101914aeab49c289b6"],["static/fonts/open-sans-condensed/light.woff","b01901d6892382054e8567356cb69e49"],["static/img/icon.png","9bfcd1695e047151ff9be6806af7ab9e"],["static/img/splash.png","5f9a623363f66720ad487fcb2d908919"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -310,7 +310,8 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/\.jpg$/, toolbox.fastest, {"cache":{"maxEntries":100,"name":"articles-cache","debug":true}});
+toolbox.router.get(/\.json$/, toolbox.networkFirst, {"cache":{"name":"json-cache","debug":true}});
+toolbox.router.get(/\.jpg$/, toolbox.cacheFirst, {"cache":{"maxEntries":100,"name":"articles-cache","debug":true}});
 
 
 

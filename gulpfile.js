@@ -52,6 +52,11 @@ gulp.task('img', function () {
   .pipe(gulp.dest('./dist/static'));
 });
 
+// move fonts
+gulp.task('fonts', function () {
+  gulp.src(['./dev/assets/fonts{,/**}'])
+  .pipe(gulp.dest('./dist/static'));
+});
 
 // CSS
 // clean dist + public css folders from previous files
@@ -88,7 +93,7 @@ gulp.task('css-path-compile', function () {
   .pipe(reload({stream: true}));
 });
 gulp.task('scss', function() {
-  runSequence('clean-dist-css', 'scss-build', 'css-versioning');
+  runSequence('clean-dist-css', 'scss-build');
 });
 
 
@@ -113,22 +118,32 @@ gulp.task('move', function () {
 
 // generate service worker
 gulp.task('generate-service-worker', function(callback) {
-  swPrecache.write(('dist/service-worker.js'), {
-    staticFileGlobs: ['dist/static/**/*.*', 'dist/index.html', 'dist/bundle.js'],
-    stripPrefix: 'dist/',
-    runtimeCaching: [{
-      urlPattern: /\.jpg$/,
-      handler: 'fastest',
-      options: {
-        cache: {
-          maxEntries: 100,
-          name: 'articles-cache',
-          debug: true
-        }
-      }
-    }],
-    verbose:true
-  }, callback);
+    swPrecache.write(('dist/service-worker.js'), {
+        staticFileGlobs: ['dist/static/**/*.*', 'dist/index.html', 'dist/bundle.js'],
+        stripPrefix: 'dist/',
+        runtimeCaching: [{
+            urlPattern: /\.json$/,
+            handler: 'networkFirst',
+            options: {
+                cache: {
+                    name: 'json-cache',
+                    debug: true
+                }
+            }
+        },
+        {
+            urlPattern: /\.jpg$/,
+            handler: 'cacheFirst',
+            options: {
+                cache: {
+                    maxEntries: 100,
+                    name: 'articles-cache',
+                    debug: true
+                }
+            }
+        }],
+        verbose:true
+    }, callback);
 });
 
 
@@ -139,7 +154,7 @@ gulp.task('default', ['serve', 'build']);
 
 // build
 gulp.task('build', function(callback) {
-    runSequence('clean','img', 'scss', 'webpack', 'move','generate-service-worker');
+    runSequence('clean','img', 'fonts', 'scss', 'webpack', 'move','generate-service-worker');
 });
 // local server
 gulp.task('serve', function () {
@@ -151,7 +166,7 @@ gulp.task('serve', function () {
     },
   });
   gulp.watch(['dev/assets/img{,/**}'], ['img'], reload);
-  gulp.watch(['dev/**/*'], ['move','webpack', 'generate-service-worker'],reload);
+  gulp.watch(['dev/**/*'], ['move', 'fonts', 'webpack', 'generate-service-worker'],reload);
   gulp.watch(['dev/assets/static/**/*'], ['move'], reload);
   gulp.watch(['dev/assets/css/**/*.{css,scss}'], ['scss'], reload);
   gulp.watch(['dev/assets/js/**/*.js'], ['webpack'], reload);
