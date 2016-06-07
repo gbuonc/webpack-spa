@@ -6,13 +6,58 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#de0000">
         <link rel="manifest" href="/manifest.json">
-        <link rel="stylesheet" href="/static/css/style.css">
+        <link rel="stylesheet" href="/static/css/app.css">
     </head>
     <body>
         <div class="content" id="main-content">
+            <!-- tabs ...................................... -->
             <div class="main-tabs" id="main-tabs"></div>
-            <div id="tabs-scroller" class="tabs-scroller swiper-container"></div>
+            <script type="t/template" id="tabs-template">
+                <div class="tab-navigation swiper-container active_tab_{{=activeTab}}">
+                    <div class="header-logo">
+                        <img src="static/img/icon.png" alt="FQ">
+                    </div>
+                    <div class="swiper-wrapper">
+                        {{@tabs}}
+                        <div class="tab-toggle swiper-slide">{{=_val.label}}</div>
+                        {{/@tabs}}
+                    </div>
+                </div>
+            </script>
+            <!-- article list ...................................... -->
+            <div id="list-scroller" class="list-scroller"></div>
+            <script type="t/template" id="list-template">
+                <div class="vertical-scroller-content">
+                    {{@contents}}
+                        <div class="newslist-block lazyload" data-bg="{{=_val.images.0.sizes.crop-4-3}}">
+                            <div class="title-wrapper">
+                                <h1>
+                                    <a href="#{{=_val.url}}" class="article-detail-link" data-rel="{{=_key}}" data-cat="{{=cat_id}}">{{=_val.title}}</a>
+                                    {{_val.author.byline}}
+                                    <span style="color: {{=color}}">di {{=_val.author.byline}}</span>
+                                    {{/_val.author.byline}}
+                                </h1>
+                            </div>
+                        </div>
+                    {{/@contents}}
+                </div>
+            </script>
+            <!-- article detail .................................... -->
             <div id="article-detail" class="article-detail"></div>
+            <script type="t/template" id="article-template">
+                <div class="article-content">
+                    <div class="post-kicker">{{=post_kicker}}</div>
+                    <h1>{{=title}}</h1>
+                    {{author.byline}}<div class="byline">di {{=author.byline}}</div>{{/author.byline}}
+                    {{images.0.sizes.crop-4-3}}<img class="lazyload" data-src="{{=images.0.sizes.crop-4-3}}" alt="">{{/images.0.sizes.crop-4-3}}
+                    <div class="post-chain">
+                        {{=post_chain}}
+                    </div>
+                    <div class="article-body">
+                        {{=content}}
+                    </div>
+                </div>
+            </script>
         </div>
         <div class="debug-connection">Offline</div>
         <script type="text/javascript" src="bundle.js" charset="utf-8"></script>

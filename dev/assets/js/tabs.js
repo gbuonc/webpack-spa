@@ -1,23 +1,31 @@
+require('script!t.js/t.min.js');
 var app = require('../../config');
-require('script!ractive/ractive.min.js');
+var contents = require('./contents.js');
 var tabs = {
     init: function(){
-        tabs.ractive = new Ractive({
-            el: '#main-tabs',
-            template: require('../../templates/tabs.tpl'),
-            data: app.ui
-        });
-        tabs.ractive.on('showArticleList', function(e){
-            // show article list if previously hidden
-            app.ui.articleList.style.display ='';
-        })
-        // observe active tab state
-        tabs.ractive.observe('tabs.*.active', function(newVal, oldVal, keyPath){
-            tabs.ractive.set('tabs.*.active', false);
-            tabs.ractive.set(keyPath, true);
-        });
-        // set first active tab
-        tabs.ractive.set('tabs.0.active', true);
+        var placeholder = document.getElementById('main-tabs');
+        var template = new t(document.getElementById('tabs-template').innerHTML);
+        var fragment = template.render(app.ui);
+        placeholder.innerHTML=fragment;
+        setTimeout(function(){
+            // init carousels
+            var navTabs = new Swiper('.tab-navigation', {
+                slidesPerView: 'auto',
+                freemode: true,
+                freeModeSticky: true,
+                onInit: function(){
+                    $('.tab-navigation').find('.swiper-slide').eq(0).addClass('active');
+                }
+            });
+            navTabs.on('onTap', function(swiper, event){
+                $('.tab-navigation').find('.swiper-slide').removeClass('active')
+                .eq(swiper.clickedIndex).addClass('active');
+                // show article list
+                contents.render(swiper.clickedIndex);
+                app.ui.articleList.style.display ='';
+                app.ui.articleContent.style.display ='none';
+            });
+        },0);
     }
 };
 module.exports = tabs;

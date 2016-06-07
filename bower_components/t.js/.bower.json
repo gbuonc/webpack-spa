@@ -1,0 +1,14 @@
+{
+  "name": "t.js",
+  "homepage": "https://github.com/jasonmoo/t.js",
+  "_release": "19b209feb6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "19b209feb683183531d4de19ee13136fb03feb9e"
+  },
+  "_source": "https://github.com/jasonmoo/t.js.git",
+  "_target": "*",
+  "_originalSource": "t.js",
+  "_direct": true
+}

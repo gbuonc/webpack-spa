@@ -1,13 +1,12 @@
-
+require('script!swiper/dist/js/swiper.min.js');
+require('script!fastclick/lib/fastclick.js');
 var app = require('../../config');
 var utils = require('./utils.js');
-var ui = require('./ui.js');
 var tabs = require('./tabs.js');
 var contents = require('./contents.js');
 var latestIssue;
 
-
-
+FastClick.attach(document.body);
 
 //get latest local content (promise)
 var offlineReq = localforage.getItem('latest');
@@ -43,9 +42,6 @@ function bootstrap(issue){
     transformContents(issue);
     tabs.init();
     contents.init();
-    // show interface
-    ui.init();
-    // utils.hideSplash();
     localforage.setItem('latest', issue);
 }
 function transformTabs(issue){
@@ -61,12 +57,8 @@ function transformTabs(issue){
         tmpObj.label = sections[i];
         // generate tab id by removing spaces
         tmpObj.id = tmpObj.label.split(' ').join('_');
-        // generate random color, for fun :-)
-        tmpObj.color = '#'+(Math.random().toString(16) + '0000000').slice(2, 8);
-        tmpObj.active = (i === app.ui.activeTab) ? true : false;
         app.ui.tabs.push(tmpObj);
     }
-    console.log(app.ui.tabs);
 }
 function transformContents(issue){
     var sections=Object.keys(issue);

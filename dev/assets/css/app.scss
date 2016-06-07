@@ -1,3 +1,21 @@
+@import '_colors.scss';
+@import '../../../bower_components/swiper/dist/css/swiper.css';
+
+@font-face {
+    font-family: 'open sans';
+    src: url('../fonts/open-sans-condensed/bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+*{position: relative; box-sizing:border-box;}
+html, body{margin: 0; padding: 0; height: 100%;}
+body {font-family: 'open sans', sans-serif; background: white;}
+.content{height: 100%; overflow: hidden;}
+img{width: 100%; height: auto;}
+h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight: normal;}
+
 // navigation tabs
 .header-logo{
     position: absolute;
@@ -33,8 +51,7 @@
     font-size: 12px;
     text-transform: uppercase;
 }
-
-.tab-toggle.active{border-bottom:3px solid white;}
+.tab-navigation .swiper-slide.active{border-bottom:3px solid white;}
 .tabs-scroller{
     position: absolute;
     z-index: 2;
@@ -45,16 +62,26 @@
     overflow: hidden;
     background: #fff;
 }
-.vertical-scroller-wrapper{
-    float: left;
-    -webkit-overflow-scrolling: touch;
+.list-scroller{
+    position: absolute;
+    top: 35px;
+    bottom:0;
+    left: 0;
+    width: 100%;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 2;
 }
-.vertical-scroller-content{
-    transform: translate3d(0,0,0);
-    margin-bottom:30px;
-    border-bottom:1px solid;
-}
+// .vertical-scroller-wrapper{
+//     float: left;
+//     -webkit-overflow-scrolling: touch;
+//     overflow: scroll;
+// }
+// .vertical-scroller-content{
+//     transform: translate3d(0,0,0);
+//     margin-bottom:30px;
+//     border-bottom:1px solid;
+// }
 .currentBar{height: 3px; width: 100px; background: red; position: absolute; bottom:0; left:0; z-index: 4;}
 .debug-connection{
     display: none;
