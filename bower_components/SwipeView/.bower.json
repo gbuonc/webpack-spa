@@ -1,0 +1,14 @@
+{
+  "name": "SwipeView",
+  "homepage": "https://github.com/cubiq/SwipeView",
+  "_release": "65c560f392",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "65c560f3926a1ca696a42768f85d5db1c6d4c18f"
+  },
+  "_source": "git://github.com/cubiq/SwipeView.git",
+  "_target": "*",
+  "_originalSource": "cubiq/SwipeView",
+  "_direct": true
+}

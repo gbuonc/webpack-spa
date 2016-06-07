@@ -4,7 +4,9 @@ var app = {
     ui:{
         // Cache DOM nodes
         articleList: document.getElementById('list-scroller'),
-        articleContent: document.getElementById('article-detail')
+        articleDetail: document.getElementById('article-detail'),
+        articleListTemplate : document.getElementById('tabs-template').innerHTML,
+        articleDetailTemplate : document.getElementById('list-template').innerHTML
     }
 };
 module.exports = app;

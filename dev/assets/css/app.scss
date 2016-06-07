@@ -71,6 +71,7 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     z-index: 2;
+    background: #fff;
 }
 // .vertical-scroller-wrapper{
 //     float: left;
@@ -119,7 +120,8 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
 }
 
 // ARTICLE DETAIL
-.article-detail{position: absolute; top:35px; bottom:0; left:0%; right:0; padding: 15px; overflow: scroll;}
-.article-content{position: relative;}
+.article-detail{position: absolute; top:35px; bottom:0; left:0%; right:0; }
+.article-navigation{position: absolute; top:0; left:0; bottom:0; right:0; }
+.article-content{position: relative; overflow: scroll; padding: 15px;}
 .post-kicker{text-transform: uppercase;}
 .article-body{font-family: georgia; font-size: 16px;}

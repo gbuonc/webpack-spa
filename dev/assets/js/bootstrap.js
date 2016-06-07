@@ -19,11 +19,12 @@ var onlineReq = Promise.resolve(
 );
 
 // assume we are offline, so as soon as local storage returns, generate html
-offlineReq.then(function(resp){
-    if(resp){
-        bootstrap(resp);
-    }
-});
+// offlineReq.then(function(resp){
+//     if(resp){
+//         console.log('bootstrap offline');
+//         bootstrap(resp);
+//     }
+// });
 // wait for both responses
 Promise.all([offlineReq, onlineReq]).then(function(resp){
     // promise returns an array with resulting values in the same order as the input

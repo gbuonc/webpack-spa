@@ -43,20 +43,27 @@
                 </div>
             </script>
             <!-- article detail .................................... -->
-            <div id="article-detail" class="article-detail"></div>
+            <div id="article-detail" class="article-detail">
+            </div>
             <script type="t/template" id="article-template">
-                <div class="article-content">
-                    <div class="post-kicker">{{=post_kicker}}</div>
-                    <h1>{{=title}}</h1>
-                    {{author.byline}}<div class="byline">di {{=author.byline}}</div>{{/author.byline}}
-                    {{images.0.sizes.crop-4-3}}<img class="lazyload" data-src="{{=images.0.sizes.crop-4-3}}" alt="">{{/images.0.sizes.crop-4-3}}
-                    <div class="post-chain">
-                        {{=post_chain}}
+            <div class="article-navigation swiper-container">
+                <div class="swiper-wrapper">
+                {{@contents}}
+                    <div class="article-content swiper-slide">
+                        <div class="post-kicker">{{=_val.post_kicker}}</div>
+                        <h1>{{=_val.title}}</h1>
+                        {{_val.author.byline}}<div class="byline">di {{=_val.author.byline}}</div>{{/_val.author.byline}}
+                        {{_val.images.0.sizes.crop-4-3}}<img class="lazyload" data-src="{{=_val.images.0.sizes.crop-4-3}}" alt="">{{/_val.images.0.sizes.crop-4-3}}
+                        <div class="post-chain">
+                            {{=_val.post_chain}}
+                        </div>
+                        <div class="article-body">
+                            {{=_val.content}}
+                        </div>
                     </div>
-                    <div class="article-body">
-                        {{=content}}
-                    </div>
+                {{/@contents}}
                 </div>
+            </div>
             </script>
         </div>
         <div class="debug-connection">Offline</div>

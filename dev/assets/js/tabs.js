@@ -4,7 +4,7 @@ var contents = require('./contents.js');
 var tabs = {
     init: function(){
         var placeholder = document.getElementById('main-tabs');
-        var template = new t(document.getElementById('tabs-template').innerHTML);
+        var template = new t(app.ui.articleListTemplate);
         var fragment = template.render(app.ui);
         placeholder.innerHTML=fragment;
         setTimeout(function(){
@@ -18,12 +18,12 @@ var tabs = {
                 }
             });
             navTabs.on('onTap', function(swiper, event){
+                // set active item
                 $('.tab-navigation').find('.swiper-slide').removeClass('active')
                 .eq(swiper.clickedIndex).addClass('active');
-                // show article list
                 contents.render(swiper.clickedIndex);
+                // show list
                 app.ui.articleList.style.display ='';
-                app.ui.articleContent.style.display ='none';
             });
         },0);
     }
