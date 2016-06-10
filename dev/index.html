@@ -15,11 +15,11 @@
             <script type="t/template" id="tabs-template">
                 <div class="tab-navigation swiper-container active_tab_{{=activeTab}}">
                     <div class="header-logo">
-                        <img src="static/img/icon.png" alt="FQ">
+                        <img src="/static/img/icon.png" alt="FQ">
                     </div>
                     <div class="swiper-wrapper">
                         {{@tabs}}
-                        <div class="tab-toggle swiper-slide">{{=_val.label}}</div>
+                        <div class="tab-toggle swiper-slide" data-rel="{{=_val.id}}">{{=_val.label}}</div>
                         {{/@tabs}}
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <div class="newslist-block lazyload" data-bg="{{=_val.images.0.sizes.crop-4-3}}">
                             <div class="title-wrapper">
                                 <h1>
-                                    <a href="#{{=_val.url}}" class="article-detail-link" data-rel="{{=_key}}" data-cat="{{=cat_id}}">{{=_val.title}}</a>
+                                    <a href="#{{=_val.url}}" class="article-detail-link" data-rel="{{=_key}}" data-cat="{{=id}}">{{=_val.title}}</a>
                                     {{_val.author.byline}}
                                     <span style="color: {{=color}}">di {{=_val.author.byline}}</span>
                                     {{/_val.author.byline}}

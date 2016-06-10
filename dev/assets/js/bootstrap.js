@@ -1,5 +1,6 @@
 require('script!swiper/dist/js/swiper.min.js');
 require('script!fastclick/lib/fastclick.js');
+require('script!page/page.js');
 var app = require('../../config');
 var utils = require('./utils.js');
 var tabs = require('./tabs.js');
@@ -7,6 +8,11 @@ var contents = require('./contents.js');
 var latestIssue;
 
 FastClick.attach(document.body);
+// ROUTING
+page('/issue/:ctg/', tabs.gotoTab);
+page('/issue/:ctg/:article', contents.showArticle);
+page();
+
 
 //get latest local content (promise)
 var offlineReq = localforage.getItem('latest');
@@ -44,6 +50,8 @@ function bootstrap(issue){
     tabs.init();
     contents.init();
     localforage.setItem('latest', issue);
+    // set url to first category path
+    page('/issue/'+app.ui.tabs[0].id+'/');
 }
 function transformTabs(issue){
     var sections=Object.keys(issue);
@@ -57,7 +65,7 @@ function transformTabs(issue){
         var tmpObj = {};
         tmpObj.label = sections[i];
         // generate tab id by removing spaces
-        tmpObj.id = tmpObj.label.split(' ').join('_');
+        tmpObj.id = tmpObj.label.split(' ').join('_').toLowerCase();
         app.ui.tabs.push(tmpObj);
     }
 }

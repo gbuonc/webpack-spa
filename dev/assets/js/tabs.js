@@ -9,7 +9,7 @@ var tabs = {
         placeholder.innerHTML=fragment;
         setTimeout(function(){
             // init carousels
-            var navTabs = new Swiper('.tab-navigation', {
+            tabs.navTabs = new Swiper('.tab-navigation', {
                 slidesPerView: 'auto',
                 freemode: true,
                 freeModeSticky: true,
@@ -17,15 +17,22 @@ var tabs = {
                     $('.tab-navigation').find('.swiper-slide').eq(0).addClass('active');
                 }
             });
-            navTabs.on('onTap', function(swiper, event){
-                // set active item
-                $('.tab-navigation').find('.swiper-slide').removeClass('active')
-                .eq(swiper.clickedIndex).addClass('active');
-                contents.render(swiper.clickedIndex);
-                // show list
-                app.ui.articleList.style.display ='';
+            tabs.navTabs.on('onTap', function(swiper, event){
+                // routing
+                var rel = event.target.attributes['data-rel'].value;
+                page('/issue/'+rel);
             });
         },0);
+    },
+    gotoTab: function(ctx){
+        // find current cat index in categories array
+        var elementPos = app.ui.tabs.map(function(x) {return x.id; }).indexOf(ctx.params.ctg);
+        // set active item
+        $('.tab-navigation').find('.swiper-slide').removeClass('active')
+        .eq(elementPos).addClass('active');
+        contents.render(elementPos);
+        // show list
+        app.ui.articleList.style.display ='';
     }
 };
 module.exports = tabs;

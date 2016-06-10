@@ -6,10 +6,12 @@ var contents = {
         contents.render(0);
         $('.list-scroller').on('click', '.article-detail-link', function(e){
             var $el = $(this);
-            var rel = parseInt($el.attr('data-rel'), 10);
-            var cat = parseInt($el.attr('data-cat'), 10);
+            var rel = $el.attr('data-rel');
+            var cat =$el.attr('data-cat');
+            var url = $el.attr('href');
+            page('/issue/'+cat+'/'+rel+'/'+url);
             e.preventDefault();
-            contents.showArticle(cat, rel);
+            // contents.showArticle(cat, rel);
         })
     },
     render: function(i){
@@ -19,7 +21,11 @@ var contents = {
         var fragment = template.render(app.ui.tabs[i]);
         placeholder.innerHTML=fragment;
     },
-    showArticle: function(cat, rel){
+    showArticle: function(ctx, next){
+        console.log(ctx);
+        app.ui.articleDetail.innerHTML='';
+        // find current cat index in categories array
+        var cat = app.ui.tabs.map(function(x) {return x.id; }).indexOf(ctx.params.ctg);
         setTimeout(function(){
             var template = new t(document.getElementById('article-template').innerHTML);
             var fragment = template.render(app.ui.tabs[cat]);
@@ -27,7 +33,7 @@ var contents = {
             // init carousels
             var articlesNav = new Swiper('.article-navigation', {
                 slidesPerView: 1,
-                initialSlide: rel
+                initialSlide: ctx.params.article
             });
             // articlesNav.on('onReachEnd', function(swiper){
             //     contents.showArticle(cat+1, 1);
