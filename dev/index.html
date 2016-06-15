@@ -15,7 +15,7 @@
             <script type="t/template" id="tabs-template">
                 <div class="tab-navigation swiper-container active_tab_{{=activeTab}}">
                     <div class="header-logo">
-                        <img src="/static/img/icon.png" alt="FQ">
+                        <a href="/"><img src="/static/img/icon.png" alt="FQ"></a>
                     </div>
                     <div class="swiper-wrapper">
                         {{@tabs}}
@@ -30,14 +30,16 @@
                 <div class="vertical-scroller-content">
                     {{@contents}}
                         <div class="newslist-block lazyload" data-bg="{{=_val.images.0.sizes.crop-4-3}}">
+                            <a href="?a={{=_val.url}}" class="article-detail-link" data-rel="{{=_key}}" data-cat="{{=id}}">
                             <div class="title-wrapper">
                                 <h1>
-                                    <a href="#{{=_val.url}}" class="article-detail-link" data-rel="{{=_key}}" data-cat="{{=id}}">{{=_val.title}}</a>
+                                    {{=_val.title}}
                                     {{_val.author.byline}}
                                     <span style="color: {{=color}}">di {{=_val.author.byline}}</span>
                                     {{/_val.author.byline}}
                                 </h1>
                             </div>
+                            </a>
                         </div>
                     {{/@contents}}
                 </div>

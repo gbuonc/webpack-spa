@@ -5,14 +5,17 @@ var app = require('../../config');
 var utils = require('./utils.js');
 var tabs = require('./tabs.js');
 var contents = require('./contents.js');
+var routing = require('./routing.js');
 var latestIssue;
 
 FastClick.attach(document.body);
 // ROUTING
-page('/issue/:ctg/', tabs.gotoTab);
-page('/issue/:ctg/:article', contents.showArticle);
+// check landing url from address bar
+app.landingUrl = window.location.hash ? window.location.hash.split('#/')[1] : '';
+page.base('#');
+page('/:issue/:ctg/', routing.getRoute);
+page('/:issue/:ctg/:article', routing.getRoute);
 page();
-
 
 //get latest local content (promise)
 var offlineReq = localforage.getItem('latest');
@@ -43,15 +46,19 @@ Promise.all([offlineReq, onlineReq]).then(function(resp){
         alert('Verifica la tua connessione');
     }
 });
-
 function bootstrap(issue){
     transformTabs(issue);
     transformContents(issue);
     tabs.init();
     contents.init();
     localforage.setItem('latest', issue);
-    // set url to first category path
-    page('/issue/'+app.ui.tabs[0].id+'/');
+    // if a well-formed url with hashtag is present in navigation bar, try to get corresponding article/category
+    // otherwise load current first category path
+    if(app.landingUrl){
+        page('#/'+app.landingUrl);
+    }else{
+        page('/issue/'+app.ui.tabs[0].id+'/');
+    }
 }
 function transformTabs(issue){
     var sections=Object.keys(issue);

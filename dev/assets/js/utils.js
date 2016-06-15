@@ -1,3 +1,4 @@
+var app = require('../../config');
 var utils = {
     showOfflineAlert : function(){
         $('.debug-connection').show();

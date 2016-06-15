@@ -6,7 +6,8 @@ var app = {
         articleList: document.getElementById('list-scroller'),
         articleDetail: document.getElementById('article-detail'),
         articleListTemplate : document.getElementById('tabs-template').innerHTML,
-        articleDetailTemplate : document.getElementById('list-template').innerHTML
+        articleDetailTemplate : document.getElementById('list-template').innerHTML,
+        internalNavigation : false
     }
 };
 module.exports = app;
