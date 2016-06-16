@@ -1,7 +1,6 @@
 'use strict';
 // init service worker
-//require('./assets/js/sw-init.js');
-
+// require('./assets/js/sw-init.js');
 require('script!zepto.js/dist/zepto.min.js');
 require('script!zepto.js/src/callbacks.js');
 require('script!zepto.js/src/deferred.js');

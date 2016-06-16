@@ -1,19 +1,31 @@
-@import '_colors.scss';
+// COLORS
+$bg : #fff;
+$black: #000;
+$text: #444;
+$red : #de0000;
+$lightGray : #ddd;
 @import '../../../bower_components/swiper/dist/css/swiper.css';
-
 @font-face {
     font-family: 'open sans';
     src: url('../fonts/open-sans-condensed/bold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'open sans light';
+    src: url('../fonts/open-sans-condensed/light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+// ------------------------------------------------------------
 
 *{position: relative; box-sizing:border-box;}
 html, body{margin: 0; padding: 0; height: 100%;}
-body {font-family: 'open sans', sans-serif; background: white;}
+body {font-family: 'open sans', sans-serif; background: $bg; color: $text;}
 .content{height: 100%; overflow: hidden;}
 img{width: 100%; height: auto;}
-h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight: normal;}
+h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight: normal; margin: 0 0 12px;}
+.padded{padding: 0 15px;}
 
 // navigation tabs
 .header-logo{
@@ -21,7 +33,7 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
     top:0;
     left:0;
     width: 40px;
-    background: #000;
+    background: $red;
     height: auto;
     z-index: 2;
     img{width: 30px; height: auto; margin: 2px;}
@@ -32,26 +44,36 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
     top: 0px;
     height: 35px;
     width: 100%;
-    background: #000;
+    background: $red;
     font-size: 15px;
     z-index: 4;
     overflow: hidden;
     padding-left: 40px;
-    box-shadow: 0px 3px 8px #333;
+    // box-shadow: 0px 3px 8px #333;
 }
 .tab-toggle{
     font-family: 'open sans', sans-serif;;
     width: auto;
-    padding: 0 20px;
-    background: #000;
+    padding: 0 15px;
+    background: $red;
     line-height: 35px;
-    border-bottom:3px solid #000;
-    color: white;
+    border-bottom:3px solid $red;
+    color: $bg;
     font-size: 12px;
     text-transform: uppercase;
-    a{color: white; text-decoration: none;}
+    a{color: $bg; text-decoration: none;}
 }
-.tab-navigation .swiper-slide.active{border-bottom:3px solid white;}
+.tab-navigation .swiper-slide.active{
+    &:before, &:after{
+        content:'';
+        position: absolute;
+        left:5px; right:5px;
+        border-top: 2px solid $bg;
+    }
+    &:before{top:6px;}
+    &:after{bottom:3px;}
+    // border-bottom:3px solid $bg;
+}
 .tabs-scroller{
     position: absolute;
     z-index: 2;
@@ -60,7 +82,7 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
     bottom:0px;
     width: 100%;
     overflow: hidden;
-    background: #fff;
+    background: $bg;
 }
 .list-scroller{
     position: absolute;
@@ -71,58 +93,62 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     z-index: 2;
-    background: #fff;
+    background: $bg;
 }
-// .vertical-scroller-wrapper{
-//     float: left;
-//     -webkit-overflow-scrolling: touch;
-//     overflow: scroll;
-// }
-// .vertical-scroller-content{
-//     transform: translate3d(0,0,0);
-//     margin-bottom:30px;
-//     border-bottom:1px solid;
-// }
-.currentBar{height: 3px; width: 100px; background: red; position: absolute; bottom:0; left:0; z-index: 4;}
+.currentBar{
+    height: 3px;
+    width: 100px;
+    background: red;
+    position: absolute;
+    bottom:0;
+    left:0;
+    z-index: 4;
+}
 .debug-connection{
     display: none;
     position: fixed;
     bottom: 3px;
     right: 3px;
     z-index: 10000;
-    background: #fff;
+    background: $bg;
     padding: 0 7px;
     text-align: right;
     text-transform: uppercase;
     font-size: 12px;
-    color: red;
-    border: 2px solid red;
+    color: $red;
+    border: 2px solid $red;
 }
 
 // NEWSLIST ----
 .newslist-block{
     position: relative;
     min-height: 180px;
-    /* background placeholder */
-    background: #de0000 url('../img/icon.png') center no-repeat;
     background-size: cover;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid $lightGray;
     & > a{position: absolute; width: 100% ;height: 100%; top:0; left:0;}
     .title-wrapper{
         position: absolute; bottom:0; left:0; right:0; min-height: 120px;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%) no-repeat;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat;
     }
     h1{
+        font-family: 'open sans light'; text-transform: uppercase; line-height: 1;
         position: absolute; bottom:7px; left:7px; right:7px;
-        margin: 0; font-size: 20px;
-        color:#fff; text-decoration: none; display: block; margin-bottom: 6px;
-        span{display: block; color: #fff ;font-family: 'open sans'; font-size: 12px; text-transform: uppercase;}
+        margin: 0; font-size: 24px; letter-spacing: 0.05em; text-shadow: 0 0 5px $text;
+        color:$bg; text-decoration: none; display: block; margin-bottom: 6px;
+        span{display: block; color: $bg ;font-family: 'open sans'; font-size: 12px; text-transform: uppercase; margin-top: 7px;}
+    }
+    &.no-image{
+        /* background placeholder */
+        background: $lightGray url('../img/icon.png') center no-repeat;
+        background-size: contain;
     }
 }
 
 // ARTICLE DETAIL
 .article-detail{position: absolute; top:35px; bottom:0; left:0%; right:0; }
 .article-navigation{position: absolute; top:0; left:0; bottom:0; right:0; }
-.article-content{position: relative; overflow: scroll; padding: 15px;}
+.article-content{position: relative; overflow: scroll; padding: 15px 0;}
+.article-content > img{margin: 7px 0;}
 .post-kicker{text-transform: uppercase;}
-.article-body{font-family: georgia; font-size: 16px;}
+.byline{margin-bottom: 7px;}
+.article-body{font-family: georgia; font-size: 17px; line-height: 1.3;}

@@ -29,7 +29,11 @@
             <script type="t/template" id="list-template">
                 <div class="vertical-scroller-content">
                     {{@contents}}
+                        {{_val.images.0.sizes.crop-4-3}}
                         <div class="newslist-block lazyload" data-bg="{{=_val.images.0.sizes.crop-4-3}}">
+                        {{:_val.images.0.sizes.crop-4-3}}
+                        <div class="newslist-block no-image">
+                        {{/_val.images.0.sizes.crop-4-3}}
                             <a href="?a={{=_val.url}}" class="article-detail-link" data-rel="{{=_key}}" data-cat="{{=id}}">
                             <div class="title-wrapper">
                                 <h1>
@@ -52,15 +56,17 @@
                 <div class="swiper-wrapper">
                 {{@contents}}
                     <div class="article-content swiper-slide">
-                        <div class="post-kicker">{{=_val.post_kicker}}</div>
-                        <h1>{{=_val.title}}</h1>
-                        {{_val.author.byline}}<div class="byline">di {{=_val.author.byline}}</div>{{/_val.author.byline}}
-                        {{_val.images.0.sizes.crop-4-3}}<img class="lazyload" data-src="{{=_val.images.0.sizes.crop-4-3}}" alt="">{{/_val.images.0.sizes.crop-4-3}}
-                        <div class="post-chain">
-                            {{=_val.post_chain}}
+                        <div class="padded">
+                            <div class="post-kicker">{{=_val.post_kicker}}</div>
+                            <h1>{{=_val.title}}</h1>
+                            {{_val.author.byline}}
+                            <div class="byline">di {{=_val.author.byline}}</div>
+                            {{/_val.author.byline}}
                         </div>
-                        <div class="article-body">
-                            {{=_val.content}}
+                        {{_val.images.0.sizes.crop-4-3}}<img class="lazyload" data-src="{{=_val.images.0.sizes.crop-4-3}}" alt="">{{/_val.images.0.sizes.crop-4-3}}
+                        <div class="padded">
+                            <div class="post-chain">{{=_val.post_chain}}</div>
+                            <div class="article-body">{{=_val.content}}</div>
                         </div>
                     </div>
                 {{/@contents}}
