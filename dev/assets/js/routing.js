@@ -1,4 +1,6 @@
+
 var app = require('../../config');
+var adv = require('./adv.js');
 var routing = {
     getRoute: function(ctx){
         // ctx comes from page.js
@@ -24,7 +26,7 @@ var routing = {
         if(typeof(routeObj.article) === "undefined"){
             routing.showArticleList(routeObj.cat);
         }else{
-            routing.showArticleDetails(routeObj);
+            routing.showArticleDetails(routeObj, articlesInCategory);
         }
         // reset internal navigation flag after every request
         app.ui.internalNavigation = false;
@@ -47,7 +49,7 @@ var routing = {
         // show list
         app.ui.articleList.style.display ='';
     },
-    showArticleDetails: function(url){
+    showArticleDetails: function(url, articlesInCategory){
         app.ui.articleDetail.innerHTML='';
         var template = new t(document.getElementById('article-template').innerHTML);
         var fragment = template.render(app.ui.tabs[url.cat]);
@@ -55,8 +57,28 @@ var routing = {
         // init carousels
         var articlesNav = new Swiper('.article-navigation', {
             slidesPerView: 1,
-            initialSlide: url.article
+            initialSlide: url.article,
+            onInit: function(swiper){
+                adv.setupDFPModules(url.article);
+            }
         });
+        articlesNav.on('onSlideChangeEnd', function(swiper){
+            var cat = app.ui.tabs[url.cat].id;
+            var u = app.ui.tabs[url.cat].contents[swiper.activeIndex].url;
+            // just change url via location href for sharing purposes
+            location.href='/#/issue/'+cat+'/'+swiper.activeIndex+'/?a='+u;
+            adv.setupDFPModules(swiper.activeIndex);
+        });
+
+
+        // setTimeout(function(){
+        //     var adsInPage = 2;
+        //     var l = articlesInCategory;
+        //     for(i=0; i<l*adsInPage; i++){
+        //         (adsbygoogle = window.adsbygoogle || []).push({});
+        //         console.log('call adv '+i);
+        //     }
+        // }, 0);
         app.ui.articleList.style.display ='none';
     }
 };

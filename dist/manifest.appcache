@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# 186907529dccd95281a3
+
+index.html
+bundle.js
+
+CACHE:
+index.html
+bundle.js
+static/css/app.css
+static/img/icon.png
+static/img/splash.png
+static/fonts/open-sans-condensed/bold.woff
+static/fonts/open-sans-condensed/light.woff
+
+NETWORK:
+*
+
+SETTINGS:
+prefer-online

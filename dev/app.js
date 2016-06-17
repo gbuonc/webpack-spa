@@ -14,6 +14,7 @@ var app = require('./config');
 var utils = require('./assets/js/utils.js');
 var shell = require('./assets/js/shell.js');
 var routing = require('./assets/js/routing.js');
+var adv = require('./assets/js/adv.js');
 var latestIssue;
 // --------------------------------------------------------------------
 FastClick.attach(document.body);
@@ -39,7 +40,7 @@ var onlineReq = Promise.resolve(
         url: app.contentEndPoint
     })
 );
-Promise.all([offlineReq, onlineReq]).then(function(resp){
+Promise.all([offlineReq]).then(function(resp){
     // promise returns an array with resulting values in the same order as the input
     // set online object if available, otherwise fallback to storage
     latestIssue = resp[1] ? resp[1] : resp[0];
@@ -61,11 +62,13 @@ function bootstrap(issue){
     // init UI
     shell.navbarTabs.init();
     shell.articleList.init();
+    // bootstrap adv
+    adv.init();
     // if a well-formed url with hashtag is present in navigation bar,
     // try to get corresponding article/category
     // otherwise load current first category path
     if(app.landingUrl){
-        page('#/'+app.landingUrl);
+        page('/'+app.landingUrl);
     }else{
         page('/issue/'+app.ui.tabs[0].id+'/');
     }

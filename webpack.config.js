@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-// var AppCachePlugin = require('appcache-webpack-plugin');
+var AppCachePlugin = require('appcache-webpack-plugin');
 // var OfflinePlugin = require('offline-plugin');
 module.exports = {
   context: __dirname + "/dev",
@@ -36,24 +36,10 @@ module.exports = {
         warnings: false
       }
     }),
-    // new OfflinePlugin({
-    //   // All options are optional
-    //   caches: 'all',
-    //   scope: '/',
-    //   updateStrategy: 'all',
-
-    //   ServiceWorker: {
-    //     output: 'sw.js'
-    //   },
-
-    //   AppCache: {
-    //     directory: '/'
-    //   }
-    // })
-    // new AppCachePlugin({
-    //   cache: ['bundle.js'],
-    //   settings: ['prefer-online'],
-    //   output: './manifest.appcache'
-    // })
+    new AppCachePlugin({
+      cache: ['index.html','bundle.js', 'static/css/app.css', 'static/img/icon.png', 'static/img/splash.png', 'static/fonts/open-sans-condensed/bold.woff', 'static/fonts/open-sans-condensed/light.woff'],
+      settings: ['prefer-online'],
+      output: './manifest.appcache'
+    })
   ]
 };
