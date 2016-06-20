@@ -8,7 +8,7 @@ if ('serviceWorker' in navigator) {
         switch (installingWorker.state) {
           case 'installed':
             if (navigator.serviceWorker.controller) {
-                alert('New content is available; please refresh.');
+                alert('E\' disponibile una nuova edizione: aggiorna la pagina per visualizzarla');
               // At this point, the old content will have been purged and the fresh content will
               // have been added to the cache.
               // It's the perfect time to display a "New content is available; please refresh."
@@ -17,12 +17,11 @@ if ('serviceWorker' in navigator) {
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a "Content is cached for offline use." message.
-              alert('Content is now available offline!');
+              // alert('Content is now available offline!');
               console.log('Content is now available offline!');
             }
             break;
           case 'redundant':
-            alert('The installing service worker became redundant.');
             console.error('The installing service worker became redundant.');
             break;
         }

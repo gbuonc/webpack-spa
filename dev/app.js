@@ -33,26 +33,79 @@ page();
 
 // request json ......................
 var offlineReq = localforage.getItem('latest');
+
 //get latest online content (wrap in promise)
-var onlineReq = Promise.resolve(
-    $.ajax({
+var onlineReq = $.ajax({
         dataType: "json",
         url: app.contentEndPoint
-    })
-);
-Promise.all([offlineReq, onlineReq]).then(function(resp){
-    // promise returns an array with resulting values in the same order as the input
-    // set online object if available, otherwise fallback to storage
-    latestIssue = resp[1] ? resp[1] : resp[0];
-    console.debug('>>> using json from '+ (resp[1] ? 'online' : 'local storage'));
-    if(latestIssue){
-        localforage.setItem('latest', latestIssue);
-        bootstrap(latestIssue);
-    }else{
-        // if both are null, we have nothing to show, so throw a warning
+    });
+onlineReq.then(function(resp){
+    // remote call ok, save to localstorage and start app
+    localforage.setItem('latest', resp);
+    bootstrap(resp);
+    utils.log('working with remote data');
+}, function(err){
+    // something went wrong, fallback to localstorage
+    offlineReq.then( function(resp){
+        bootstrap(resp);
+        utils.log('error retrieving data online, working with local data');
+    }).catch(function(err){
+        utils.log('no local/remote data available');        
         alert('Verifica la tua connessione');
-    }
+    });
 });
+
+//
+// offlineReq.then(function(response){
+//     console.log(response);
+// })
+// .catch(function(reason){
+//     console.log(reason);
+// });
+//
+// onlineReq.then(function(response){
+//     console.log(response);
+//     localforage.setItem('latest', latestIssue);
+// })
+// .catch(function(reason){
+//     console.log(reason);
+// });
+// offlineReq.then(
+//
+// )
+// .catch(
+//
+// );
+//
+// onlineReq.then(
+//     // Log the fulfillment value
+//     function(val) {
+//         console.log(val);
+//         bootstrap(val);
+//     })
+//     .catch(
+//         // Log the rejection reason
+//         function(reason) {
+//             var offlineReq = localforage.getItem('latest');
+//             offlineReq.then(function(val){
+//                 bootstrap(val);
+//             })
+//
+//             console.log(reason);
+//         });
+// // Promise.race([offlineReq, onlineReq]).then(function(resp){
+// //     // promise returns an array with resulting values in the same order as the input
+// //     // set online object if available, otherwise fallback to storage
+// //     latestIssue = resp[1] ? resp[1] : resp[0];
+// //     console.debug('>>> using json from '+ (resp[1] ? 'online' : 'local storage'));
+// //     if(latestIssue){
+// //         localforage.setItem('latest', latestIssue);
+// //         bootstrap(latestIssue);
+// //     }else{
+// //         // if both are null, we have nothing to show, so throw a warning
+// //         alert('Verifica la tua connessione');
+// //     }
+// // });
 
 // initialize app .......................
 function bootstrap(issue){

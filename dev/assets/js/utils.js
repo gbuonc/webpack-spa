@@ -28,6 +28,11 @@ var utils = {
         for (var i= 0; i<l; i++) {
             app.ui.tabs[i].contents=issue[sections[i]];
         }
+    },
+    log: function(message){
+        if(app.debug){
+            console.debug('[IFQ >> '+message+']');
+        }
     }
 };
 module.exports = utils;

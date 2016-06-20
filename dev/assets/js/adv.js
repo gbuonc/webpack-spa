@@ -1,3 +1,4 @@
+var utils = require('./utils.js');
 var adv = {
     init: function(){
         var gadx = document.createElement('script');
@@ -8,7 +9,7 @@ var adv = {
         '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
         var node = document.getElementsByTagName('script')[0];
         node.parentNode.insertBefore(gadx, node);
-        console.debug('>>> init google dfp');
+        utils.log('init google dfp');
     },
     setupDFPModules: function(){
         // clear existing adv slots

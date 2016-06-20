@@ -17,9 +17,9 @@
             <!-- tabs ...................................... -->
             <div class="main-tabs" id="main-tabs"></div>
             <script type="t/template" id="tabs-template">
-                <div class="tab-navigation swiper-container active_tab_{{=activeTab}}">
+                <div class="tab-navigation swiper-container">
                     <div class="header-logo">
-                        <a href="/"><img src="/static/img/icon.png" alt="FQ"></a>
+                        <img src="/static/img/icon.png" alt="FQ" data-rel="{{=tabs.0.id}}">
                     </div>
                     <div class="swiper-wrapper">
                         {{@tabs}}

@@ -8,6 +8,7 @@ var app = {
         articleListTemplate : document.getElementById('tabs-template').innerHTML,
         articleDetailTemplate : document.getElementById('list-template').innerHTML,
         internalNavigation : false
-    }
+    },
+    debug: true
 };
 module.exports = app;

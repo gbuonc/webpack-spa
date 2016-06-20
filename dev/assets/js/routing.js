@@ -1,4 +1,3 @@
-
 var app = require('../../config');
 var adv = require('./adv.js');
 var routing = {
@@ -69,7 +68,6 @@ var routing = {
             location.href='/#/issue/'+cat+'/'+swiper.activeIndex+'/?a='+u;
             adv.setupDFPModules(swiper.activeIndex);
         });
-
 
         // setTimeout(function(){
         //     var adsInPage = 2;
