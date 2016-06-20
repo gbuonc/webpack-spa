@@ -40,7 +40,7 @@ var onlineReq = Promise.resolve(
         url: app.contentEndPoint
     })
 );
-Promise.all([offlineReq]).then(function(resp){
+Promise.all([offlineReq, onlineReq]).then(function(resp){
     // promise returns an array with resulting values in the same order as the input
     // set online object if available, otherwise fallback to storage
     latestIssue = resp[1] ? resp[1] : resp[0];

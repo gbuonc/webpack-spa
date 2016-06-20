@@ -1,5 +1,5 @@
 {
-  "firebase": "webpack-spa",
+  "firebase": "ifqpwa",
   "public": "dist",
   "ignore": [
     "firebase.json",
