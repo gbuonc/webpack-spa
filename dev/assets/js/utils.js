@@ -1,19 +1,5 @@
 var app = require('../../config');
 var utils = {
-    showOfflineBadge : function(){
-        $('.debug-connection').show();
-    },
-    hideOfflineBadge : function(){
-        $('.debug-connection').hide();
-    },
-    showOfflinePage : function(){
-        var offLineMsg = 'Contenuti non disponibili.<br>Verifica la tua connessione di rete e riprova.';
-        var offlineBtn = '<button class="btn btn-offline-reload">Ricarica</button>';
-        $('body').append('<div class="offline-alert">'+offLineMsg+offlineBtn+'</div>');
-        $('.btn-offline-reload').on('click', function(){
-            location.reload();
-        });
-    },
     transformTabs: function(issue){
         var sections=Object.keys(issue);
         // create a tab object to use in templates

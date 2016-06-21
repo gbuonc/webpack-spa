@@ -1,18 +1,5 @@
 'use strict';
-var app = require('./config');
-var utils = require('./assets/js/utils.js');
-// set offline strategy: service worker with appcache fallback
-var hasSWSupport = 'serviceWorker' in navigator;
-if (hasSWSupport && app.offline.serviceWorker){
-    require('./assets/js/sw-init.js'); // init service worker
-    utils.log('offline support via service worker');
-}
-if(!hasSWSupport && app.offline.appCache){
-    require('script!appcache-nanny/appcache-nanny.js');
-    appCacheNanny.start();
-    utils.log('offline support via appcache');
-}
-// ......
+
 require('script!fastclick/lib/fastclick.js');
 require('script!zepto.js/dist/zepto.min.js');
 require('script!zepto.js/src/callbacks.js');
@@ -23,6 +10,9 @@ require('script!offline/offline.min.js');
 require('script!localforage/dist/localforage.min.js');
 require('script!page/page.js');
 
+var app = require('./config');
+var utils = require('./assets/js/utils.js');
+var offline = require('./assets/js/offline.js');
 var shell = require('./assets/js/shell.js');
 var routing = require('./assets/js/routing.js');
 var adv = require('./assets/js/adv.js');
@@ -31,11 +21,12 @@ var latestIssue;
 // ...
 // --------------------------------------------------------------------
 FastClick.attach(document.body);
+offline.init();
 
 // offline alerts ...................
 Offline.options.checkOnLoad = true;
-Offline.on('confirmed-down', function(){utils.showOfflineBadge();});
-Offline.on('confirmed-up', function(){ utils.hideOfflineBadge();});
+Offline.on('confirmed-down', function(){offline.showBadge();});
+Offline.on('confirmed-up', function(){ offline.hideBadge();});
 
 // routing .........................
 app.landingUrl = window.location.hash ? window.location.hash.split('#/')[1] : ''; // check landing url from address bar
@@ -55,14 +46,14 @@ onlineReq.then(function(resp){
     // remote call ok, save to localstorage and start app
     localforage.setItem('latest', resp);
     bootstrap(resp);
-    utils.log('working with remote data');
+    utils.log('working with remote json');
 }, function(err){
     // something went wrong, fallback to localstorage
     offlineReq.then( function(resp){
         bootstrap(resp);
-        utils.log('error retrieving data online, working with local data');
+        utils.log('error retrieving data online, working with local json');
     }).catch(function(err){
-        utils.showOfflinePage();
+        offline.showErrorPage();
         utils.log('no local/remote data available');
     });
 });
