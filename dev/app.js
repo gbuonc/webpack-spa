@@ -34,8 +34,8 @@ FastClick.attach(document.body);
 
 // offline alerts ...................
 Offline.options.checkOnLoad = true;
-Offline.on('confirmed-down', function(){utils.showOfflineAlert();});
-Offline.on('confirmed-up', function(){ utils.hideOfflineAlert();});
+Offline.on('confirmed-down', function(){utils.showOfflineBadge();});
+Offline.on('confirmed-up', function(){ utils.hideOfflineBadge();});
 
 // routing .........................
 app.landingUrl = window.location.hash ? window.location.hash.split('#/')[1] : ''; // check landing url from address bar
@@ -44,9 +44,8 @@ page('/:issue/:ctg/', routing.getRoute);
 page('/:issue/:ctg/:article', routing.getRoute);
 page();
 
-// request json ......................
+// request json
 var offlineReq = localforage.getItem('latest');
-
 //get latest online content (wrap in promise)
 var onlineReq = $.ajax({
         dataType: "json",
@@ -63,8 +62,8 @@ onlineReq.then(function(resp){
         bootstrap(resp);
         utils.log('error retrieving data online, working with local data');
     }).catch(function(err){
+        utils.showOfflinePage();
         utils.log('no local/remote data available');
-        alert('Verifica la tua connessione');
     });
 });
 

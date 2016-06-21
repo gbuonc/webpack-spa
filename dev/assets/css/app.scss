@@ -27,6 +27,20 @@ img{width: 100%; height: auto;}
 h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight: normal; margin: 0 0 12px;}
 .padded{padding: 0 15px;}
 .content{position: relative; max-width: 800px; margin: 0 auto;}
+
+.btn {
+    display: inline-block;
+    padding: 4px 15px;
+    line-height: 1;
+    text-transform: uppercase;
+    background: $lightGray;
+    border: none;
+    font-family: 'open sans condensed';
+    margin: 15px auto;
+    font-size: 14px;
+    letter-spacing: 0.07em;
+}
+
 // navigation tabs
 .header-logo{
     position: absolute;
@@ -168,3 +182,14 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
 // [data-adsbygoogle-status]{
 //     background:#ddffbb !important;
 // }
+
+// offline alert
+.offline-alert{
+    font-family: 'open sans light', sans-serif;
+    position: absolute; top:50%; left:50%; width: 90%;
+    padding-top: 100px;
+    transform: translate(-50%, -50%); text-align: center; z-index: 2;
+    background: url('../img/icon.png') top center no-repeat;
+    background-size: auto 45%;
+}
+.btn-offline-reload{background: $red; color: $bg;}
