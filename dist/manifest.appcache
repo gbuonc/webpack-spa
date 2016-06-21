@@ -1,11 +1,11 @@
 CACHE MANIFEST
-# 09d3f699f249fb3bf102
+# f69ded6e9649693424a3
 
 index.html
 bundle.js
 
 CACHE:
-index.html
+/
 bundle.js
 static/css/app.css
 static/img/icon.png

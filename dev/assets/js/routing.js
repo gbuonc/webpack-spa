@@ -28,31 +28,33 @@ var routing = {
             routing.showArticleDetails(routeObj, articlesInCategory);
         }
         // reset internal navigation flag after every request
-        app.ui.internalNavigation = false;
+        app.status.internalNavigation = false;
     },
     setTabs: function(url){
         // set active item
         $('.tab-navigation').find('.swiper-slide').removeClass('active')
         .eq(url.cat).addClass('active');
         // slide to active tab only if we come from external source (i.e. social sharing), not by tapping internally
-        if(!app.ui.internalNavigation){
+        if(!app.status.internalNavigation){
             app.navTabs.slideTo(url.cat);
         }
     },
     showArticleList: function(i){
         var placeholder = document.getElementById('list-scroller');
-        var template = new t(app.ui.articleDetailTemplate);
+        var articleDetailTemplate = document.getElementById('list-template').innerHTML;
+        var template = new t(articleDetailTemplate);
         app.ui.tabs[i].cat_id = i;
         var fragment = template.render(app.ui.tabs[i]);
         placeholder.innerHTML=fragment;
         // show list
-        app.ui.articleList.style.display ='';
+        routing.toggleArticleListVisibility('');
     },
     showArticleDetails: function(url, articlesInCategory){
-        app.ui.articleDetail.innerHTML='';
+        var articleDetail = document.getElementById('article-detail');
+        articleDetail.innerHTML='';
         var template = new t(document.getElementById('article-template').innerHTML);
         var fragment = template.render(app.ui.tabs[url.cat]);
-        app.ui.articleDetail.innerHTML=fragment;
+        articleDetail.innerHTML=fragment;
         // init carousels
         var articlesNav = new Swiper('.article-navigation', {
             slidesPerView: 1,
@@ -68,16 +70,10 @@ var routing = {
             location.href='/#/issue/'+cat+'/'+swiper.activeIndex+'/?a='+u;
             adv.setupDFPModules(swiper.activeIndex);
         });
-
-        // setTimeout(function(){
-        //     var adsInPage = 2;
-        //     var l = articlesInCategory;
-        //     for(i=0; i<l*adsInPage; i++){
-        //         (adsbygoogle = window.adsbygoogle || []).push({});
-        //         console.log('call adv '+i);
-        //     }
-        // }, 0);
-        app.ui.articleList.style.display ='none';
+        routing.toggleArticleListVisibility('none');
+    },
+    toggleArticleListVisibility: function(disp){
+        document.getElementById('list-scroller').style.display = disp;
     }
 };
 module.exports = routing;

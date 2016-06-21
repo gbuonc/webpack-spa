@@ -37,7 +37,7 @@ module.exports = {
       }
     }),
     new AppCachePlugin({
-      cache: ['index.html','bundle.js', 'static/css/app.css', 'static/img/icon.png', 'static/img/splash.png', 'static/fonts/open-sans-condensed/bold.woff', 'static/fonts/open-sans-condensed/light.woff'],
+      cache: ['/','bundle.js', 'static/css/app.css', 'static/img/icon.png', 'static/img/splash.png', 'static/fonts/open-sans-condensed/bold.woff', 'static/fonts/open-sans-condensed/light.woff'],
       settings: ['prefer-online'],
       output: './manifest.appcache'
     })

@@ -1,5 +1,18 @@
 'use strict';
-// require('./assets/js/sw-init.js'); // init service worker
+var app = require('./config');
+var utils = require('./assets/js/utils.js');
+// set offline strategy: service worker with appcache fallback
+var hasSWSupport = 'serviceWorker' in navigator;
+if (hasSWSupport && app.offline.serviceWorker){
+    require('./assets/js/sw-init.js'); // init service worker
+    utils.log('offline support via service worker');
+}
+if(!hasSWSupport && app.offline.appCache){
+    require('script!appcache-nanny/appcache-nanny.js');
+    appCacheNanny.start();
+    utils.log('offline support via appcache');
+}
+// ......
 require('script!fastclick/lib/fastclick.js');
 require('script!zepto.js/dist/zepto.min.js');
 require('script!zepto.js/src/callbacks.js');
@@ -10,12 +23,12 @@ require('script!offline/offline.min.js');
 require('script!localforage/dist/localforage.min.js');
 require('script!page/page.js');
 
-var app = require('./config');
-var utils = require('./assets/js/utils.js');
 var shell = require('./assets/js/shell.js');
 var routing = require('./assets/js/routing.js');
 var adv = require('./assets/js/adv.js');
 var latestIssue;
+
+// ...
 // --------------------------------------------------------------------
 FastClick.attach(document.body);
 
@@ -50,62 +63,10 @@ onlineReq.then(function(resp){
         bootstrap(resp);
         utils.log('error retrieving data online, working with local data');
     }).catch(function(err){
-        utils.log('no local/remote data available');        
+        utils.log('no local/remote data available');
         alert('Verifica la tua connessione');
     });
 });
-
-//
-// offlineReq.then(function(response){
-//     console.log(response);
-// })
-// .catch(function(reason){
-//     console.log(reason);
-// });
-//
-// onlineReq.then(function(response){
-//     console.log(response);
-//     localforage.setItem('latest', latestIssue);
-// })
-// .catch(function(reason){
-//     console.log(reason);
-// });
-// offlineReq.then(
-//
-// )
-// .catch(
-//
-// );
-//
-// onlineReq.then(
-//     // Log the fulfillment value
-//     function(val) {
-//         console.log(val);
-//         bootstrap(val);
-//     })
-//     .catch(
-//         // Log the rejection reason
-//         function(reason) {
-//             var offlineReq = localforage.getItem('latest');
-//             offlineReq.then(function(val){
-//                 bootstrap(val);
-//             })
-//
-//             console.log(reason);
-//         });
-// // Promise.race([offlineReq, onlineReq]).then(function(resp){
-// //     // promise returns an array with resulting values in the same order as the input
-// //     // set online object if available, otherwise fallback to storage
-// //     latestIssue = resp[1] ? resp[1] : resp[0];
-// //     console.debug('>>> using json from '+ (resp[1] ? 'online' : 'local storage'));
-// //     if(latestIssue){
-// //         localforage.setItem('latest', latestIssue);
-// //         bootstrap(latestIssue);
-// //     }else{
-// //         // if both are null, we have nothing to show, so throw a warning
-// //         alert('Verifica la tua connessione');
-// //     }
-// // });
 
 // initialize app .......................
 function bootstrap(issue){

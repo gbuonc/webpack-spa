@@ -5,7 +5,8 @@ var shell = {
     navbarTabs: {
         init: function(){
             var placeholder = document.getElementById('main-tabs');
-            var template = new t(app.ui.articleListTemplate);
+            var articleListTemplate = document.getElementById('tabs-template').innerHTML
+            var template = new t(articleListTemplate);
             var fragment = template.render(app.ui);
             placeholder.innerHTML=fragment;
             // init carousels
@@ -18,7 +19,7 @@ var shell = {
                 // routing
                 var rel = event.target.attributes['data-rel'].value;
                 // set internal navigation flag
-                app.ui.internalNavigation = true;
+                app.status.internalNavigation = true;
                 page('/issue/'+rel);
             });
         }
@@ -27,7 +28,7 @@ var shell = {
         init: function(){
             $('.list-scroller').on('click', '.article-detail-link', function(e){
                 // set internal navigation flag
-                app.ui.internalNavigation = true;
+                app.status.internalNavigation = true;
                 var $el = $(this);
                 var rel = $el.attr('data-rel');
                 var cat =$el.attr('data-cat');
