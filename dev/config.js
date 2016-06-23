@@ -3,7 +3,7 @@ var app = {
     contentEndPoint : 'https://st40.ilfattoquotidiano.it/wp-content/uploads/app.json',
     offline: {
         serviceWorker : false,
-        appCache: false
+        appCache: false 
     },
     status:{
         internalNavigation : false

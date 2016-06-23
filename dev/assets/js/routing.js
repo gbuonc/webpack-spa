@@ -58,6 +58,8 @@ var routing = {
         // init carousels
         var articlesNav = new Swiper('.article-navigation', {
             slidesPerView: 1,
+            threshold: 50,
+            touchAngle: 15,
             initialSlide: url.article,
             onInit: function(swiper){
                 adv.setupDFPModules(url.article);
