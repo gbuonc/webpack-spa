@@ -17,7 +17,6 @@ var shell = require('./assets/js/shell.js');
 var routing = require('./assets/js/routing.js');
 var adv = require('./assets/js/adv.js');
 var latestIssue;
-
 // ...
 // --------------------------------------------------------------------
 FastClick.attach(document.body);
@@ -43,9 +42,11 @@ var onlineReq = $.ajax({
         url: app.contentEndPoint
     });
 onlineReq.then(function(resp){
-    // remote call ok, save to localstorage and start app
-    localforage.setItem('latest', resp);
-    bootstrap(resp);
+    console.log(resp);
+    // remote call ok, transform json into a useful object, save to localstorage and start app
+    var formattedResp = utils.formatJson(resp);
+    localforage.setItem('latest', formattedResp);
+    bootstrap(formattedResp);
     utils.log('working with remote json');
 }, function(err){
     // something went wrong, fallback to localstorage
@@ -60,9 +61,6 @@ onlineReq.then(function(resp){
 
 // initialize app .......................
 function bootstrap(issue){
-    // format json
-    utils.transformTabs(issue);
-    utils.transformContents(issue);
     // init UI
     shell.navbarTabs.init();
     shell.articleList.init();
@@ -70,10 +68,11 @@ function bootstrap(issue){
     adv.init();
     // if a well-formed url with hashtag is present in navigation bar,
     // try to get corresponding article/category
-    // otherwise load current first category path
+    // otherwise load homepage
     if(app.landingUrl){
         page('/'+app.landingUrl);
     }else{
-        page('/issue/'+app.ui.tabs[0].id+'/');
+        // page('/issue/'+app.ui.tabs[0].slug+'/');
+        page('/'+app.currentIssue.id+'/homepage');
     }
 }

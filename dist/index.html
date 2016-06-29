@@ -14,71 +14,9 @@
     </head>
     <body>
         <div class="content" id="main-content">
-            <!-- tabs ...................................... -->
-            <div class="main-tabs" id="main-tabs"></div>
-            <script type="t/template" id="tabs-template">
-                <div class="tab-navigation swiper-container">
-                    <div class="header-logo">
-                        <img src="/static/img/icon.png" alt="FQ" data-rel="{{=tabs.0.id}}">
-                    </div>
-                    <div class="swiper-wrapper">
-                        {{@tabs}}
-                        <div class="tab-toggle swiper-slide" data-rel="{{=_val.id}}">{{=_val.label}}</div>
-                        {{/@tabs}}
-                    </div>
-                </div>
-            </script>
-            <!-- article list ...................................... -->
-            <div id="list-scroller" class="list-scroller"></div>
-            <script type="t/template" id="list-template">
-                <div class="vertical-scroller-content">
-                    {{@contents}}
-                        {{_val.images.0.sizes.crop-4-3}}
-                        <div class="newslist-block lazyload" data-bg="{{=_val.images.0.sizes.crop-4-3}}">
-                        {{:_val.images.0.sizes.crop-4-3}}
-                        <div class="newslist-block no-image">
-                        {{/_val.images.0.sizes.crop-4-3}}
-                            <a href="?a={{=_val.url}}" class="article-detail-link" data-rel="{{=_key}}" data-cat="{{=id}}">
-                            <div class="title-wrapper">
-                                <h1>
-                                    {{=_val.title}}
-                                    {{_val.author.byline}}
-                                    <span style="color: {{=color}}">di {{=_val.author.byline}}</span>
-                                    {{/_val.author.byline}}
-                                </h1>
-                            </div>
-                            </a>
-                        </div>
-                    {{/@contents}}
-                </div>
-            </script>
-            <!-- article detail .................................... -->
-            <div id="article-detail" class="article-detail">
-            </div>
-            <script type="t/template" id="article-template">
-            <div class="article-navigation swiper-container">
-                <div class="swiper-wrapper">
-                {{@contents}}
-                    <div class="article-content swiper-slide">
-                        <div class="padded">
-                            <div class="post-kicker">{{=_val.post_kicker}}</div>
-                            <h1>{{=_val.title}}</h1>
-                            {{_val.author.byline}}
-                            <div class="byline">di {{=_val.author.byline}}</div>
-                            {{/_val.author.byline}}
-                        </div>
-                        {{_val.images.0.sizes.crop-4-3}}<img class="lazyload" data-src="{{=_val.images.0.sizes.crop-4-3}}" alt="">{{/_val.images.0.sizes.crop-4-3}}
-                        <div class="dfp-placeholder dfp-placeholder-top"></div>
-                        <div class="padded">
-                            <div class="post-chain">{{=_val.post_chain}}</div>
-                            <div class="article-body">{{=_val.content}}</div>
-                        </div>
-                        <div class="dfp-placeholder dfp-placeholder-bottom"></div>
-                    </div>
-                {{/@contents}}
-                </div>
-            </div>
-            </script>
+            @@include('partials/navbar.html');
+            @@include('partials/articles.html');
+            @@include('partials/article_detail.html');
         </div>
         <div class="debug-connection">Offline</div>
         <script type="text/javascript" src="bundle.js" charset="utf-8"></script>

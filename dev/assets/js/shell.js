@@ -7,7 +7,7 @@ var shell = {
             var placeholder = document.getElementById('main-tabs');
             var articleListTemplate = document.getElementById('tabs-template').innerHTML
             var template = new t(articleListTemplate);
-            var fragment = template.render(app.ui);
+            var fragment = template.render(app.currentIssue);
             placeholder.innerHTML=fragment;
             // init carousels
             app.navTabs = new Swiper('.tab-navigation', {
@@ -20,7 +20,7 @@ var shell = {
                 var rel = event.target.attributes['data-rel'].value;
                 // set internal navigation flag
                 app.status.internalNavigation = true;
-                page('/issue/'+rel);
+                page('/'+app.currentIssue.id+'/'+rel);
             });
         }
     },
@@ -33,11 +33,10 @@ var shell = {
                 var rel = $el.attr('data-rel');
                 var cat =$el.attr('data-cat');
                 var url = $el.attr('href');
-                page('/issue/'+cat+'/'+rel+'/'+url);
+                page('/'+app.currentIssue.id+'/'+cat+'/'+rel+'/'+url);
                 e.preventDefault();
             })
         }
     }
-
 }
 module.exports = shell;

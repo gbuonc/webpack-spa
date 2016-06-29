@@ -4,72 +4,76 @@ var routing = {
     getRoute: function(ctx){
         // ctx comes from page.js
         var category = ctx.params.ctg;
-        var article = ctx.params.article;
-        /*  if category index doesn't exists in array (elementPos = -1) return first category list (0) ignoring article
+        var article = parseInt(ctx.params.article,10);
+        console.log('GET ROUTE',category, article );
+        /*  if category index doesn't exists in array (elementPos = -1) return homepage ignoring article
             if category is ok, check if we have a valid article index
             if we don't have a correct article but category is ok show requested category list
             (we always return a category, with or without a corresponding article) */
         var routeObj = {};
-        routeObj.cat = app.ui.tabs.map(function(x) {return x.id; }).indexOf(category);
-        if(routeObj.cat === -1){
-            routeObj.cat = 0;  // category does not exist, so show first cat list ignoring article
+
+        // set category..............
+        if(!app.currentIssue.contents[category]){
+            page('/'+app.currentIssue.id+'/homepage'); // if category does not exists, show homepage
         }else{
-            var articlesInCategory = app.ui.tabs[routeObj.cat].contents.length;
-            article = parseInt(article, 10);
-            if(article >= 0 && article < articlesInCategory){
-                routeObj.article = article;  // set article only if cat is OK and article index is in range
-            }
+            routeObj.cat = category;
+            routeObj.catIndex = app.currentIssue.tabs.map(function(x) {return x.slug; }).indexOf(category);
         }
-        // highlight current tab
+        // set article...............
+        var articlesInCategory = app.currentIssue.contents[category].articles.map(function(x) {return x.id; });
+        var articleExists = (articlesInCategory.indexOf(article) >=0) ? true : false;
+        if(article && articleExists){
+            routeObj.article = article;
+            routeObj.articleIndex = articlesInCategory.indexOf(article);
+        }
+        console.log(routeObj);
         routing.setTabs(routeObj);
         if(typeof(routeObj.article) === "undefined"){
-            routing.showArticleList(routeObj.cat);
+            routing.showArticleList(routeObj); // show category list
         }else{
-            routing.showArticleDetails(routeObj, articlesInCategory);
+            routing.showArticleDetails(routeObj); // show article details
         }
         // reset internal navigation flag after every request
         app.status.internalNavigation = false;
     },
     setTabs: function(url){
-        // set active item
+        // highlight current tab
         $('.tab-navigation').find('.swiper-slide').removeClass('active')
-        .eq(url.cat).addClass('active');
+        .eq(url.catIndex).addClass('active');
         // slide to active tab only if we come from external source (i.e. social sharing), not by tapping internally
         if(!app.status.internalNavigation){
-            app.navTabs.slideTo(url.cat);
+            app.navTabs.slideTo(url.catIndex);
         }
     },
-    showArticleList: function(i){
+    showArticleList: function(routeObj){
         var placeholder = document.getElementById('list-scroller');
         var articleDetailTemplate = document.getElementById('list-template').innerHTML;
         var template = new t(articleDetailTemplate);
-        app.ui.tabs[i].cat_id = i;
-        var fragment = template.render(app.ui.tabs[i]);
+        var fragment = template.render(app.currentIssue.contents[routeObj.cat]);
         placeholder.innerHTML=fragment;
         // show list
         routing.toggleArticleListVisibility('');
     },
-    showArticleDetails: function(url, articlesInCategory){
+    showArticleDetails: function(routeObj){
         var articleDetail = document.getElementById('article-detail');
         articleDetail.innerHTML='';
         var template = new t(document.getElementById('article-template').innerHTML);
-        var fragment = template.render(app.ui.tabs[url.cat]);
+        var fragment = template.render(app.currentIssue.contents[routeObj.cat]);
         articleDetail.innerHTML=fragment;
         // init carousels
         var articlesNav = new Swiper('.article-navigation', {
             slidesPerView: 1,
-            threshold: 50,
             touchAngle: 15,
-            initialSlide: url.article,
+            initialSlide: routeObj.articleIndex,
             onInit: function(swiper){
-                adv.setupDFPModules(url.article);
+                adv.setupDFPModules(routeObj.articleIndex);
             }
         });
         articlesNav.on('onSlideChangeEnd', function(swiper){
-            var cat = app.ui.tabs[url.cat].id;
-            var u = app.ui.tabs[url.cat].contents[swiper.activeIndex].url;
+            var id = app.currentIssue.contents[routeObj.cat].articles[swiper.activeIndex].id;
+            var u = app.currentIssue.contents[routeObj.cat].articles[swiper.activeIndex].url;
             // just change url via location href for sharing purposes
-            location.href='/#/issue/'+cat+'/'+swiper.activeIndex+'/?a='+u;
+            location.href='/#/issue/'+routeObj.cat+'/'+id+'/?a='+u;
             adv.setupDFPModules(swiper.activeIndex);
         });
         routing.toggleArticleListVisibility('none');

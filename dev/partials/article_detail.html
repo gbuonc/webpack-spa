@@ -1,0 +1,26 @@
+<div id="article-detail" class="article-detail">
+</div>
+<script type="t/template" id="article-template">
+<div class="article-navigation swiper-container">
+    <div class="swiper-wrapper">
+    {{@articles}}
+        <div class="article-content swiper-slide">
+            <div class="padded">
+                <div class="post-kicker">{{=_val.post_kicker}}</div>
+                <h1>{{=_val.title}}</h1>
+                {{_val.author.byline}}
+                <div class="byline">di {{=_val.author.byline}}</div>
+                {{/_val.author.byline}}
+            </div>
+            {{_val.images.0.sizes.crop-4-3}}<img class="lazyload" data-src="{{=_val.images.0.sizes.crop-4-3}}" alt="">{{/_val.images.0.sizes.crop-4-3}}
+            <div class="dfp-placeholder dfp-placeholder-top"></div>
+            <div class="padded">
+                <div class="post-chain">{{=_val.post_chain}}</div>
+                <div class="article-body">{{=_val.content}}</div>
+            </div>
+            <div class="dfp-placeholder dfp-placeholder-bottom"></div>
+        </div>
+    {{/@articles}}
+    </div>
+</div>
+</script>

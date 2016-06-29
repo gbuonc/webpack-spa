@@ -45,6 +45,16 @@ gulp.task('clean', function () {
     return gulp.src(['dist'], { read: false }).pipe(clean());
 });
 
+gulp.task('fileinclude', function() {
+    gulp.src(['dev/*.html'])
+    .pipe(fileinclude({
+        prefix: '@@',
+      basepath: '@file'
+    }))
+    .pipe(gulp.dest('dist'))
+	.pipe(reload({stream: true}));
+});
+
 // compress and move static images
 gulp.task('img', function () {
   gulp.src(['./dev/assets/img{,/**}'])
@@ -154,7 +164,7 @@ gulp.task('default', ['serve', 'build']);
 
 // build
 gulp.task('build', function(callback) {
-    runSequence('clean','img', 'fonts', 'scss', 'webpack', 'move','generate-service-worker');
+    runSequence('clean', 'fileinclude', 'img', 'fonts', 'scss', 'webpack', 'move','generate-service-worker');
 });
 // local server
 gulp.task('serve', function () {
@@ -166,7 +176,7 @@ gulp.task('serve', function () {
     },
   });
   gulp.watch(['dev/assets/img{,/**}'], ['img'], reload);
-  gulp.watch(['dev/**/*'], ['move', 'fonts', 'webpack', 'generate-service-worker'],reload);
+  gulp.watch(['dev/**/*'], ['move', 'fileinclude', 'fonts', 'webpack', 'generate-service-worker'],reload);
   gulp.watch(['dev/assets/static/**/*'], ['move'], reload);
   gulp.watch(['dev/assets/css/**/*.{css,scss}'], ['scss'], reload);
   gulp.watch(['dev/assets/js/**/*.js'], ['webpack'], reload);

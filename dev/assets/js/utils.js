@@ -1,27 +1,53 @@
 var app = require('../../config');
 var utils = {
-    transformTabs: function(issue){
-        var sections=Object.keys(issue);
-        // create a tab object to use in templates
-        // hopefully json will be already formatted server side
-        // and we can skip this passage
-        var l=sections.length;
-        // empty tabs array so it does not append to existing tabs but starts again
-        app.ui.tabs = [];
-        for (var i= 0; i<l; i++) {
-            var tmpObj = {};
-            tmpObj.label = sections[i];
-            // generate tab id by removing spaces
-            tmpObj.id = tmpObj.label.split(' ').join('_').toLowerCase();
-            app.ui.tabs.push(tmpObj);
+    formatJson : function(issue){
+        // json structure ........
+        app.currentIssue = {
+            id: issue['id'],
+            tabs: [],
+            contents:{
+                homepage:{
+                    articles:[]
+                }
+            }
+        };
+        // temporary array to store posts id
+        tmpArr= [];
+        issue.posts.map(function(obj){ tmpArr.push(obj.id) });
+        // tabs ...................
+        for(key in issue.categories){
+            app.currentIssue.tabs.push(issue.categories[key]);
         }
-    },
-    transformContents: function(issue){
-        var sections=Object.keys(issue);
-        var l=sections.length;
-        for (var i= 0; i<l; i++) {
-            app.ui.tabs[i].contents=issue[sections[i]];
+        // homepage ...............
+        for(var i = 0, l=issue.homepage.length; i<l; i++){
+            // get id of articles in homepage
+            var id = parseInt(issue.homepage[i].postid, 10);
+            // find its position in posts array
+            var index = tmpArr.indexOf(id);
+            if(index != -1){
+                // push article obj to homepage array
+                var tempObj = JSON.parse(JSON.stringify(issue.posts[index])); // clone obj by value, not reference
+                tempObj.isInHomepage = true;
+                app.currentIssue.contents.homepage.articles.push(tempObj);
+            }
         }
+        // all categories ...........
+        for(key in issue.categories){
+            // create an array for every category
+            app.currentIssue.contents[key] = {};
+            app.currentIssue.contents[key].articles = [];
+            for(var i = 0, l=issue.categories[key].posts.length; i<l; i++){
+                // get id of articles in current category
+                var postId = parseInt(issue.categories[key].posts[i], 10);
+                // find its position in posts array
+                var index = tmpArr.indexOf(postId);
+                if(index != -1){
+                    // push article obj to homepage array
+                    app.currentIssue.contents[key].articles.push(issue.posts[index]);
+                }
+            }
+        }
+        console.log(app.currentIssue);
     },
     log: function(message){
         if(app.debug){
