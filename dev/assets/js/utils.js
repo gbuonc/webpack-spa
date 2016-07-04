@@ -18,6 +18,16 @@ var utils = {
         for(key in issue.categories){
             app.currentIssue.tabs.push(issue.categories[key]);
         }
+        // transform post type in a object format suitable for templates
+        for(index in issue.posts){
+            var post = issue.posts[index];
+            var oldPostType = post.post_type ? post.post_type : 'article';
+            var newPostType = {};
+            newPostType['is_'+oldPostType] = true;
+            post.post_type = newPostType;
+            console.log(post.title, newPostType);
+        }
+
         // homepage ...............
         for(var i = 0, l=issue.homepage.length; i<l; i++){
             // get id of articles in homepage
@@ -42,7 +52,7 @@ var utils = {
                 // find its position in posts array
                 var index = tmpArr.indexOf(postId);
                 if(index != -1){
-                    // push article obj to homepage array
+                    // push article obj to category array
                     app.currentIssue.contents[key].articles.push(issue.posts[index]);
                 }
             }

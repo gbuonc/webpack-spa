@@ -1,5 +1,4 @@
 'use strict';
-
 require('script!fastclick/lib/fastclick.js');
 require('script!zepto.js/dist/zepto.min.js');
 require('script!zepto.js/src/callbacks.js');
@@ -8,16 +7,18 @@ require('script!lazysizes/lazysizes.min.js');
 require('script!lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js');
 require('script!offline/offline.min.js');
 require('script!localforage/dist/localforage.min.js');
+require('script!redux/dist/redux.min.js');
 require('script!page/page.js');
 
 var app = require('./config');
 var utils = require('./assets/js/utils.js');
 var offline = require('./assets/js/offline.js');
-var shell = require('./assets/js/shell.js');
+var navbar = require('./assets/js/navbar.js');
+var articles = require('./assets/js/articles.js');
 var routing = require('./assets/js/routing.js');
 var adv = require('./assets/js/adv.js');
 var latestIssue;
-// ...
+
 // --------------------------------------------------------------------
 FastClick.attach(document.body);
 offline.init();
@@ -62,8 +63,8 @@ onlineReq.then(function(resp){
 // initialize app .......................
 function bootstrap(issue){
     // init UI
-    shell.navbarTabs.init();
-    shell.articleList.init();
+    navbar.init();
+    articles.init();
     // bootstrap adv
     adv.init();
     // if a well-formed url with hashtag is present in navigation bar,

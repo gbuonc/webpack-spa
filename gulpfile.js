@@ -176,7 +176,7 @@ gulp.task('serve', function () {
     },
   });
   gulp.watch(['dev/assets/img{,/**}'], ['img'], reload);
-  gulp.watch(['dev/**/*'], ['move', 'fileinclude', 'fonts', 'webpack', 'generate-service-worker'],reload);
+  gulp.watch(['dev/**/*'], ['move', 'fonts', 'webpack', 'generate-service-worker'],reload);
   gulp.watch(['dev/assets/static/**/*'], ['move'], reload);
   gulp.watch(['dev/assets/css/**/*.{css,scss}'], ['scss'], reload);
   gulp.watch(['dev/assets/js/**/*.js'], ['webpack'], reload);

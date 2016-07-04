@@ -167,6 +167,12 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
 .byline{margin-bottom: 7px;}
 .article-body{font-family: georgia; font-size: 17px; line-height: 1.3;}
 
+.article-gallery{background: #efefef; width: 100%; height: 240px; position: relative; margin-bottom: 15px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;}
+.article-gallery .swiper-slide{overflow: hidden; display: flex;}
+.article-gallery .swiper-slide img{object-fit: contain;}
+.show-gallery{position: absolute; top:0; left:0; width: 100%; height: 100%; z-index: 3; display: flex;align-items: center;
+  justify-content: center;}
+.show-gallery strong{background: rgba(0,0,0,.3); padding: 5px 15px; border-radius:5px; color:#fff; text-transform: uppercase;}
 
 // ADV google DFP
 .dfp-placeholder{
@@ -193,3 +199,9 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
     background-size: auto 45%;
 }
 .btn-offline-reload{background: $red; color: $bg;}
+
+
+.player-wrapper .bcPlayer, .player-wrapper video {
+    width: 100%;
+    height: 180px;
+}
