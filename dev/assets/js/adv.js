@@ -37,7 +37,7 @@ var adv = {
         }
     },
     injectDFP : function(module){
-        $('<ins />').attr(module).appendTo('.swiper-slide-active .'+module.target);
+        $('<ins />').attr(module).appendTo('.swipeview-active .'+module.target);
         adv.initDFP();
     },
     initDFP: function(){

@@ -25,7 +25,6 @@ var utils = {
             var newPostType = {};
             newPostType['is_'+oldPostType] = true;
             post.post_type = newPostType;
-            console.log(post.title, newPostType);
         }
 
         // homepage ...............

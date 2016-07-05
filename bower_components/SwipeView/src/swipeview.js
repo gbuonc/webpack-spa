@@ -54,7 +54,7 @@ var SwipeView = (function (window, document) {
 			return transitionEnd[vendor];
 		})(),
 
-		SwipeView = function (el, options) {
+		SwipeView = function (el, options, gotopage) {
 			var i,
 				div,
 				className,
@@ -66,7 +66,8 @@ var SwipeView = (function (window, document) {
 				numberOfPages: 3,
 				snapThreshold: null,
 				hastyPageFlip: false,
-				loop: true
+				loop: true,
+				gotopage: 0
 			};
 
 			// User defined options
@@ -84,7 +85,6 @@ var SwipeView = (function (window, document) {
 			this.slider = div;
 
 			this.refreshSize();
-
 			for (i=-1; i<2; i++) {
 				div = document.createElement('div');
 				div.id = 'swipeview-masterpage-' + (i+1);
@@ -94,7 +94,13 @@ var SwipeView = (function (window, document) {
 				div.dataset.pageIndex = pageIndex;
 				div.dataset.upcomingPageIndex = pageIndex;
 
-				if (!this.options.loop && i == -1) div.style.visibility = 'hidden';
+				console.log(options.gotopage, options.numberOfPages-1);
+				// hide slide before first slide
+				if (!this.options.loop && i == -1 && options.gotopage===0){div.style.visibility = 'hidden'};
+				// hide slide after last slide
+				if (!this.options.loop && i == 1 && options.gotopage===options.numberOfPages-1){div.style.visibility = 'hidden'};
+
+
 
 				this.slider.appendChild(div);
 				this.masterPages.push(div);
@@ -111,9 +117,11 @@ var SwipeView = (function (window, document) {
 			// in Opera >= 12 the transitionend event is lowercase so we register both events
 			if ( vendor == 'O' ) this.slider.addEventListener(transitionEndEvent.toLowerCase(), this, false);
 
-/*			if (!hasTouch) {
-				this.wrapper.addEventListener('mouseout', this, false);
-			}*/
+			// DESTINATION PAGE IN OPTIONS
+			var self = this;
+			setTimeout(function(){
+				self.goToPage(options.gotopage);
+			}, 0);
 		};
 
 	SwipeView.prototype = {

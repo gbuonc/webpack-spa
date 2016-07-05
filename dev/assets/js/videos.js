@@ -4,13 +4,19 @@ var videos = {
     activePlayers:[],
     init: function(){
         var self = this;
-        // init all brightcove video players in current category
-        self.activePlayers = [];
-        $('.videoplayer').each(function(i){
-            var videoId = $(this).attr('data-video-id');
-            var videoPlayer = '<video id="bcPlayer_'+videoId+'" data-account="1328010481001" data-embed="default" data-player ="SJvcSUDx" data-video-id="'+videoId+'" class="bcPlayer" controls></video>';
-            $(this).find('.player-wrapper').html(videoPlayer);
-            self.activePlayers.push(bc(document.getElementById('bcPlayer_'+videoId)));
+        var showVideoBtn = $('.show-video');
+        this.pauseAll();
+        showVideoBtn.on('click', function(){
+            $(this).hide();
+            // init all brightcove video players in current category
+            $('.swipeview-active .videoplayer').each(function(i){
+                var videoId = $(this).attr('data-video-id');
+                var videoPlayer = '<video id="bcPlayer_'+videoId+'" data-account="1328010481001" data-embed="default" data-player ="SJvcSUDx" data-video-id="'+videoId+'" class="bcPlayer" controls></video>';
+                $(this).find('.player-wrapper').html(videoPlayer);
+                var activePlayer = bc(document.getElementById('bcPlayer_'+videoId));
+                self.activePlayers.push(activePlayer);
+                activePlayer.autoplay(true);
+            });
         });
     },
     pauseAll: function(){

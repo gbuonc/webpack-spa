@@ -43,12 +43,11 @@ var onlineReq = $.ajax({
         url: app.contentEndPoint
     });
 onlineReq.then(function(resp){
-    console.log(resp);
     // remote call ok, transform json into a useful object, save to localstorage and start app
     var formattedResp = utils.formatJson(resp);
     localforage.setItem('latest', formattedResp);
-    bootstrap(formattedResp);
     utils.log('working with remote json');
+    bootstrap(formattedResp);
 }, function(err){
     // something went wrong, fallback to localstorage
     offlineReq.then( function(resp){
