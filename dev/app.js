@@ -7,7 +7,6 @@ require('script!lazysizes/lazysizes.min.js');
 require('script!lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js');
 require('script!offline/offline.min.js');
 require('script!localforage/dist/localforage.min.js');
-require('script!redux/dist/redux.min.js');
 require('script!page/page.js');
 
 var app = require('./config');

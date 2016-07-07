@@ -1,10 +1,10 @@
 var app = require('../../config');
 require('script!swiper/dist/js/swiper.min.js');
-require('script!t.js/t.min.js');
+require('script!t.js/t.min.js');    
 var navbar = {
     init: function(){
         var placeholder = document.getElementById('main-tabs');
-        var articleListTemplate = document.getElementById('tabs-template').innerHTML
+        var articleListTemplate = require("raw!../../partials/navbar.tpl");
         var template = new t(articleListTemplate);
         var fragment = template.render(app.currentIssue);
         placeholder.innerHTML=fragment;

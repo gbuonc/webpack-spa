@@ -17,7 +17,7 @@ var articles = {
     showList: function(routeObj){
         document.getElementById('article-detail').innerHTML='';
         var placeholder = document.getElementById('list-scroller');
-        var articleDetailTemplate = document.getElementById('list-template').innerHTML;
+        var articleDetailTemplate = require('raw!../../partials/articles.tpl');
         var template = new t(articleDetailTemplate);
         var fragment = template.render(app.currentIssue.contents[routeObj.cat]);
         placeholder.innerHTML=fragment;
@@ -27,19 +27,37 @@ var articles = {
     showDetails: function(routeObj){
         // ==================== swiperview version ===========================================
         var slides = app.currentIssue.contents[routeObj.cat].articles;
-        var template = new t(document.getElementById('article-template-swipeview').innerHTML);
+        var articleTemplate = require('raw!../../partials/article_detail.tpl');
+        var template = new t(articleTemplate);
         var swipeview = new SwipeView('#article-detail', {
         	numberOfPages: slides.length,
             loop: false,
         	hastyPageFlip: true,
             gotopage: routeObj.articleIndex
         });
-        // Load initial data (3 slides)
+        // // Load initial data (3 slides)
         var l = slides.length > 3 ? 3 : slides.length;
-        for (var i=0; i<l; i++) {
-            var page = i==0 ? slides.length-1 : i-1;
-            var fragment = template.render(slides[page]);
-            swipeview.masterPages[i].innerHTML=fragment;
+        switch(l){
+            case 1:
+                // show single page
+                var fragment = template.render(slides[0]);
+                swipeview.masterPages[1].innerHTML=fragment;
+            break;
+            case 2:
+                // show two pages
+                var fragment_1 = template.render(slides[0]);
+                var fragment_2 = template.render(slides[1]);
+                swipeview.masterPages[1].innerHTML=fragment_1;
+                swipeview.masterPages[2].innerHTML=fragment_2;
+            break;
+            default:
+                // show swipeview carousel
+                for (var i=0; i<l; i++) {
+                    var page = i==0 ? slides.length-1 : i-1;
+                    var fragment = template.render(slides[page]);
+                    swipeview.masterPages[i].innerHTML=fragment;
+                }
+            break;
         }
 
         swipeview.onFlip(function () {

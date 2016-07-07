@@ -38,7 +38,9 @@ var adv = {
     },
     injectDFP : function(module){
         $('<ins />').attr(module).appendTo('.swipeview-active .'+module.target);
-        adv.initDFP();
+        setTimeout(function(){
+            adv.initDFP();
+        }, 350);
     },
     initDFP: function(){
         (adsbygoogle = window.adsbygoogle || []).push({});

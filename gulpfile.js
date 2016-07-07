@@ -52,7 +52,7 @@ gulp.task('fileinclude', function() {
       basepath: '@file'
     }))
     .pipe(gulp.dest('dist'))
-	.pipe(reload({stream: true}));
+	.pipe(reload());
 });
 
 // compress and move static images
