@@ -35,15 +35,13 @@ var adv = {
         for(var i = 0, l= modules.length; i<l; i++){
             adv.injectDFP(modules[i]);
         }
+        var n = $('.swipeview-active').find('ins').size();
     },
     injectDFP : function(module){
         $('<ins />').attr(module).appendTo('.swipeview-active .'+module.target);
         setTimeout(function(){
-            adv.initDFP();
+            (adsbygoogle = window.adsbygoogle || []).push({});
         }, 350);
-    },
-    initDFP: function(){
-        (adsbygoogle = window.adsbygoogle || []).push({});
     }
 }
 module.exports = adv;

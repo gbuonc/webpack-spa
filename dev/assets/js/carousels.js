@@ -9,14 +9,6 @@ var carousels = {
         var articlesCarousel = new Swiper('.swipeview-active .article-gallery', {
             slidesPerView: 1
         });
-        // SWIPER.JS (old version)
-        // var articlesCarousel = new Swiper('.article-gallery', {
-        //     slidesPerView: 1,
-        //     onSlideChangeEnd: function(){
-        //         // show gallery btn
-        //         showGalleryBtn.attr('style', '');
-        //     }
-        // });
     },
     showGalleryBtn: function(){
         $('.show-gallery').attr('style', '');

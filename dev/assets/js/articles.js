@@ -25,17 +25,23 @@ var articles = {
         articles.toggleListVisibility('');
     },
     showDetails: function(routeObj){
-        // ==================== swiperview version ===========================================
         var slides = app.currentIssue.contents[routeObj.cat].articles;
         var articleTemplate = require('raw!../../partials/article_detail.tpl');
         var template = new t(articleTemplate);
+        // reset carousel by removing existing event listeners on swipeview
+        // by cloning and replacing its wrapper
+        var el = document.getElementById('article-detail'),
+        elClone = el.cloneNode(true);
+        el.parentNode.replaceChild(elClone, el);
+        // init swipeview
         var swipeview = new SwipeView('#article-detail', {
         	numberOfPages: slides.length,
             loop: false,
         	hastyPageFlip: true,
             gotopage: routeObj.articleIndex
         });
-        // // Load initial data (3 slides)
+
+        // Load initial data (3 slides)
         var l = slides.length > 3 ? 3 : slides.length;
         switch(l){
             case 1:
@@ -59,8 +65,7 @@ var articles = {
                 }
             break;
         }
-
-        swipeview.onFlip(function () {
+        swipeview.onFlip(function(){
             var $currentSlide = $('.swipeview-active');
             var currentIndex = $currentSlide[0].dataset.upcomingPageIndex;
         	for (var i=0; i<3; i++) {
@@ -78,39 +83,10 @@ var articles = {
                 // change url via location href for sharing purposes with a timeout for performance reason
                 var id = app.currentIssue.contents[routeObj.cat].articles[currentIndex].id;
                 var u = app.currentIssue.contents[routeObj.cat].articles[currentIndex].url;
-                location.href='/#/issue/'+routeObj.cat+'/'+id+'/?a='+u;
+                location.href='/#/'+app.currentIssue.id+'/'+routeObj.cat+'/'+id+'/?a='+u;
             }, 500);
         });
 
-        // ==================== swiper.js version ===========================================
-        // var articleDetail = document.getElementById('article-detail');
-        // var template = new t(document.getElementById('article-template').innerHTML);
-        // var fragment = template.render(app.currentIssue.contents[routeObj.cat]);
-        // articleDetail.innerHTML=fragment;
-        // // init carousels
-        // var articlesNav = new Swiper('.article-navigation', {
-        //     slidesPerView: 1,
-        //     touchAngle: 15,
-        //     initialSlide: routeObj.articleIndex,
-        //     onInit: function(swiper){
-        //         //videos.init();
-        //         // init internal carousel
-        //         var carouselSlides = app.currentIssue.contents[routeObj.cat].articles[swiper.activeIndex].gallery;
-        //         //carousels.init(carouselSlides);
-        //         //adv.setupDFPModules(routeObj.articleIndex);
-        //     }
-        // });
-        // articlesNav.on('onSlideChangeEnd', function(swiper){
-        //     // pause all active videos in current category
-        //     //videos.pauseAll();
-        //     //carousels.showGalleryBtn();
-        //     // change url via location href for sharing purposes
-        //     var id = app.currentIssue.contents[routeObj.cat].articles[swiper.activeIndex].id;
-        //     var u = app.currentIssue.contents[routeObj.cat].articles[swiper.activeIndex].url;
-        //     location.href='/#/issue/'+routeObj.cat+'/'+id+'/?a='+u;
-        //     // init in page adv
-        //     // adv.setupDFPModules(swiper.activeIndex);
-        // });
         articles.toggleListVisibility('none');
     },
     toggleListVisibility: function(disp){

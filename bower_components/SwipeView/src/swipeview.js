@@ -59,7 +59,6 @@ var SwipeView = (function (window, document) {
 				div,
 				className,
 				pageIndex;
-
 			this.wrapper = typeof el == 'string' ? document.querySelector(el) : el;
 			this.options = {
 				text: null,
@@ -69,13 +68,10 @@ var SwipeView = (function (window, document) {
 				loop: true,
 				gotopage: 0
 			};
-
 			// User defined options
 			for (i in options) this.options[i] = options[i];
-
 			this.wrapper.style.overflow = 'hidden';
 			this.wrapper.style.position = 'relative';
-
 			this.masterPages = [];
 
 			div = document.createElement('div');
@@ -93,15 +89,10 @@ var SwipeView = (function (window, document) {
 				pageIndex = i == -1 ? this.options.numberOfPages - 1 : i;
 				div.dataset.pageIndex = pageIndex;
 				div.dataset.upcomingPageIndex = pageIndex;
-
-				console.log(options.gotopage, options.numberOfPages-1);
 				// hide slide before first slide
 				if (!this.options.loop && i == -1 && options.gotopage===0){div.style.visibility = 'hidden'};
 				// hide slide after last slide
 				if (!this.options.loop && i == 1 && options.gotopage===options.numberOfPages-1){div.style.visibility = 'hidden'};
-
-
-
 				this.slider.appendChild(div);
 				this.masterPages.push(div);
 			}
@@ -130,7 +121,6 @@ var SwipeView = (function (window, document) {
 		page: 0,
 		pageIndex: 0,
 		customEvents: [],
-
 		onFlip: function (fn) {
 			this.wrapper.addEventListener('swipeview-flip', fn, false);
 			this.customEvents.push(['flip', fn]);
