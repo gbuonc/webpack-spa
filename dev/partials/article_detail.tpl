@@ -43,9 +43,13 @@
         <img class="lazyload" data-src="{{=thumbnail.ifq-thumb-high.url}}" alt="">
     {{/thumbnail.ifq-thumb-high.url}}
     {{/post_type.is_image}}
+    <!-- <iframe src="dfp_placeholder_top.html" frameborder="0" style="width: 100%; height: 50px; border:1px solid #f30;"></iframe> -->
     <div class="dfp-placeholder dfp-placeholder-top"></div>
     <div class="padded">
         <div class="article-body">{{=content}}</div>
     </div>
+    <!-- <div style="text-align:center;">
+        <iframe src="dfp_placeholder_bottom.html" frameborder="0" style="width: 300px; height: 250px; border:1px solid #f30;"></iframe>
+    </div> -->
     <div class="dfp-placeholder dfp-placeholder-bottom"></div>
 </div>

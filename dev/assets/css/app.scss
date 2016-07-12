@@ -192,9 +192,10 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
 .dfp-placeholder-top{height: 55px;}
 .dfp-placeholder-bottom{height: 250px;}
 
-// [data-adsbygoogle-status]{
-//     background:#ddffbb !important;
-// }
+.adsbygoogle{visibility: hidden; overflow: hidden; display: block;}
+[data-adsbygoogle-status]{
+    visibility: visible;
+}
 
 // offline splash page
 .offline-alert{

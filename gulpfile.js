@@ -30,7 +30,6 @@ var handlebarOpts = {
 
 // utils ...............................................
 var swPrecache = require('sw-precache');
-var fileinclude = require('gulp-file-include');
 var runSequence = require('run-sequence');
 var clean = require('gulp-clean');
 var browserSync = require('browser-sync');
@@ -43,16 +42,6 @@ var webpackConfig = require("./webpack.config.js");
 // clean dist folder
 gulp.task('clean', function () {
     return gulp.src(['dist'], { read: false }).pipe(clean());
-});
-
-gulp.task('fileinclude', function() {
-    gulp.src(['dev/*.html'])
-    .pipe(fileinclude({
-        prefix: '@@',
-      basepath: '@file'
-    }))
-    .pipe(gulp.dest('dist'))
-	.pipe(reload());
 });
 
 // compress and move static images
@@ -127,34 +116,34 @@ gulp.task('move', function () {
 });
 
 // generate service worker
-gulp.task('generate-service-worker', function(callback) {
-    swPrecache.write(('dist/service-worker.js'), {
-        staticFileGlobs: ['dist/static/**/*.*', 'dist/index.html', 'dist/bundle.js'],
-        stripPrefix: 'dist/',
-        runtimeCaching: [{
-            urlPattern: /\.json$/,
-            handler: 'networkFirst',
-            options: {
-                cache: {
-                    name: 'json-cache',
-                    debug: true
-                }
-            }
-        },
-        {
-            urlPattern: /\.jpg$/,
-            handler: 'cacheFirst',
-            options: {
-                cache: {
-                    maxEntries: 100,
-                    name: 'articles-cache',
-                    debug: true
-                }
-            }
-        }],
-        verbose:true
-    }, callback);
-});
+// gulp.task('generate-service-worker', function(callback) {
+//     swPrecache.write(('dist/service-worker.js'), {
+//         staticFileGlobs: ['dist/static/**/*.*', 'dist/index.html', 'dist/bundle.js'],
+//         stripPrefix: 'dist/',
+//         runtimeCaching: [{
+//             urlPattern: /\.json$/,
+//             handler: 'networkFirst',
+//             options: {
+//                 cache: {
+//                     name: 'json-cache',
+//                     debug: true
+//                 }
+//             }
+//         },
+//         {
+//             urlPattern: /\.jpg$/,
+//             handler: 'cacheFirst',
+//             options: {
+//                 cache: {
+//                     maxEntries: 100,
+//                     name: 'articles-cache',
+//                     debug: true
+//                 }
+//             }
+//         }],
+//         verbose:true
+//     }, callback);
+// });
 
 
 // =================================================================================
@@ -164,19 +153,19 @@ gulp.task('default', ['serve', 'build']);
 
 // build
 gulp.task('build', function(callback) {
-    runSequence('clean', 'fileinclude', 'img', 'fonts', 'scss', 'webpack', 'move','generate-service-worker');
+    runSequence('clean', 'img', 'fonts', 'scss', 'webpack', 'move'); // ,'generate-service-worker');
 });
 // local server
 gulp.task('serve', function () {
     gulp.task('build');
-    gulp.task('generate-service-worker');
+    // gulp.task('generate-service-worker');
   browserSync.init({
     server: {
       baseDir: ['dist']
     },
   });
   gulp.watch(['dev/assets/img{,/**}'], ['img'], reload);
-  gulp.watch(['dev/**/*'], ['move', 'fonts', 'webpack', 'generate-service-worker'],reload);
+  gulp.watch(['dev/**/*'], ['move', 'fonts', 'webpack'],reload);
   gulp.watch(['dev/assets/static/**/*'], ['move'], reload);
   gulp.watch(['dev/assets/css/**/*.{css,scss}'], ['scss'], reload);
   gulp.watch(['dev/assets/js/**/*.js'], ['webpack'], reload);
