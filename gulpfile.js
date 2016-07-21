@@ -116,34 +116,34 @@ gulp.task('move', function () {
 });
 
 // generate service worker
-// gulp.task('generate-service-worker', function(callback) {
-//     swPrecache.write(('dist/service-worker.js'), {
-//         staticFileGlobs: ['dist/static/**/*.*', 'dist/index.html', 'dist/bundle.js'],
-//         stripPrefix: 'dist/',
-//         runtimeCaching: [{
-//             urlPattern: /\.json$/,
-//             handler: 'networkFirst',
-//             options: {
-//                 cache: {
-//                     name: 'json-cache',
-//                     debug: true
-//                 }
-//             }
-//         },
-//         {
-//             urlPattern: /\.jpg$/,
-//             handler: 'cacheFirst',
-//             options: {
-//                 cache: {
-//                     maxEntries: 100,
-//                     name: 'articles-cache',
-//                     debug: true
-//                 }
-//             }
-//         }],
-//         verbose:true
-//     }, callback);
-// });
+gulp.task('generate-service-worker', function(callback) {
+    swPrecache.write(('dist/service-worker.js'), {
+        staticFileGlobs: ['dist/static/**/*.*', 'dist/index.html', 'dist/bundle.js'],
+        stripPrefix: 'dist/',
+        runtimeCaching: [{
+            urlPattern: /\.json$/,
+            handler: 'networkFirst',
+            options: {
+                cache: {
+                    name: 'json-cache',
+                    debug: true
+                }
+            }
+        },
+        {
+            urlPattern: /\.jpg$/,
+            handler: 'cacheFirst',
+            options: {
+                cache: {
+                    maxEntries: 100,
+                    name: 'articles-cache',
+                    debug: true
+                }
+            }
+        }],
+        verbose:true
+    }, callback);
+});
 
 
 // =================================================================================
@@ -153,7 +153,7 @@ gulp.task('default', ['serve', 'build']);
 
 // build
 gulp.task('build', function(callback) {
-    runSequence('clean', 'img', 'fonts', 'scss', 'webpack', 'move'); // ,'generate-service-worker');
+    runSequence('clean', 'img', 'fonts', 'scss', 'webpack', 'move','generate-service-worker');
 });
 // local server
 gulp.task('serve', function () {

@@ -17,7 +17,6 @@ var articles = require('./assets/js/articles.js');
 var routing = require('./assets/js/routing.js');
 var adv = require('./assets/js/adv.js');
 var latestIssue;
-
 // --------------------------------------------------------------------
 FastClick.attach(document.body);
 offline.init();
