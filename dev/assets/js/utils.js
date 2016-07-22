@@ -22,11 +22,12 @@ var utils = {
         for(index in issue.posts){
             var post = issue.posts[index];
             var oldPostType = post.post_type ? post.post_type : 'article';
-            var newPostType = {};
-            newPostType['is_'+oldPostType] = true;
-            post.post_type = newPostType;
+            if(typeof(oldPostType) === 'string'){
+                var newPostType = {};
+                newPostType['is_'+oldPostType] = true;
+                post.post_type = newPostType;
+            }
         }
-
         // homepage ...............
         for(var i = 0, l=issue.homepage.length; i<l; i++){
             // get id of articles in homepage
@@ -56,7 +57,6 @@ var utils = {
                 }
             }
         }
-        console.log(app.currentIssue);
     },
     log: function(message){
         if(app.debug){

@@ -18,6 +18,7 @@ var routing = require('./assets/js/routing.js');
 var adv = require('./assets/js/adv.js');
 var latestIssue;
 // --------------------------------------------------------------------
+
 FastClick.attach(document.body);
 offline.init();
 
@@ -35,35 +36,39 @@ page();
 
 // request json
 var offlineReq = localforage.getItem('latest');
-//get latest online content (wrap in promise)
+// get latest online content (wrap in promise)
 var onlineReq = $.ajax({
-        dataType: "json",
-        url: app.contentEndPoint
-    });
+    dataType: "json",
+    url: app.contentEndPoint
+});
 onlineReq.then(function(resp){
-    // remote call ok, transform json into a useful object, save to localstorage and start app
-    var formattedResp = utils.formatJson(resp);
-    localforage.setItem('latest', formattedResp);
     utils.log('working with remote json');
-    bootstrap(formattedResp);
+    bootstrap(resp);
 }, function(err){
+    console.log(err);
     // something went wrong, fallback to localstorage
-    offlineReq.then( function(resp){
-        bootstrap(resp);
+    offlineReq.then(function(resp){
         utils.log('error retrieving data online, working with local json');
+        bootstrap(resp);
     }).catch(function(err){
+        console.log(err);
         offline.showErrorPage();
         utils.log('no local/remote data available');
     });
 });
-
 // initialize app .......................
-function bootstrap(issue){
+function bootstrap(jsonObj){
+    //save json to localstorage
+    localforage.setItem('latest', jsonObj);
+    // transform it into a useful object
+    var formattedResp = utils.formatJson(jsonObj);
     // init UI
     navbar.init();
     articles.init();
     // bootstrap adv
     adv.init();
+    // app.currentIssue is defined in utils.js > formatJson
+    console.log(app.currentIssue);
     // if a well-formed url with hashtag is present in navigation bar,
     // try to get corresponding article/category
     // otherwise load homepage

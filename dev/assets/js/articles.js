@@ -80,13 +80,12 @@ var articles = {
             carousels.init();
             adv.setupDFPModules();
             setTimeout(function(){
-                // change url via location href for sharing purposes with a timeout for performance reason
+                // change url via location href for sharing purposes with a timeout for performance reasons
                 var id = app.currentIssue.contents[routeObj.cat].articles[currentIndex].id;
                 var u = app.currentIssue.contents[routeObj.cat].articles[currentIndex].url;
                 location.href='/#/'+app.currentIssue.id+'/'+routeObj.cat+'/'+id+'/?a='+u;
             }, 500);
         });
-
         articles.toggleListVisibility('none');
     },
     toggleListVisibility: function(disp){
