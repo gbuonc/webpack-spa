@@ -1,6 +1,6 @@
 var app = require('../../config');
 require('script!swiper/dist/js/swiper.min.js');
-require('script!t.js/t.min.js');    
+require('script!t.js/t.min.js');
 var navbar = {
     init: function(){
         var placeholder = document.getElementById('main-tabs');
@@ -24,8 +24,11 @@ var navbar = {
     },
     setTabs: function(url){
         // highlight current tab
-        $('.tab-navigation').find('.swiper-slide').removeClass('active')
-        .eq(url.catIndex).addClass('active');
+        var $navSlides = $('.tab-navigation').find('.swiper-slide');
+        $navSlides.removeClass('active');
+        if(url.catIndex >= 0){
+            $navSlides.eq(url.catIndex).addClass('active');
+        }
         // slide to active tab only if we come from external source (i.e. social sharing), not by tapping internally
         if(!app.status.internalNavigation){
             app.navTabs.slideTo(url.catIndex);

@@ -30,9 +30,10 @@ Offline.on('confirmed-up', function(){ offline.hideBadge();});
 // routing .........................
 app.landingUrl = window.location.hash ? window.location.hash.split('#/')[1] : ''; // check landing url from address bar
 page.base('#');
-page('/:issue/:ctg/', routing.getRoute);
-page('/:issue/:ctg/:article', routing.getRoute);
-page();
+
+page('/:issue/:ctg?/:article?', routing.getRoute);
+page('*', function(ctx){}); // needed to land to homepage
+page(); // init page.js
 
 // request json
 var offlineReq = localforage.getItem('latest');
@@ -65,17 +66,15 @@ function bootstrap(jsonObj){
     // init UI
     navbar.init();
     articles.init();
-    // bootstrap adv
+    // bootstrap advertising
     adv.init();
-    // app.currentIssue is defined in utils.js > formatJson
-    console.log(app.currentIssue);
     // if a well-formed url with hashtag is present in navigation bar,
     // try to get corresponding article/category
     // otherwise load homepage
     if(app.landingUrl){
         page('/'+app.landingUrl);
     }else{
-        // page('/issue/'+app.ui.tabs[0].slug+'/');
+        // app.currentIssue is defined in utils.js > formatJson
         page('/'+app.currentIssue.id+'/homepage');
     }
 }

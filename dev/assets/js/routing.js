@@ -3,7 +3,6 @@ var articles = require('./articles.js');
 var navbar = require('./navbar.js');
 var routing = {
     getRoute: function(ctx){
-        // ctx comes from page.js
         var category = ctx.params.ctg;
         var article = parseInt(ctx.params.article,10);
         /*  if category index doesn't exists in array (elementPos = -1) return homepage ignoring article
@@ -26,7 +25,9 @@ var routing = {
             routeObj.article = article;
             routeObj.articleIndex = articlesInCategory.indexOf(article);
         }
+        // set navbar ...............
         navbar.setTabs(routeObj);
+
         if(typeof(routeObj.article) === "undefined"){
             articles.showList(routeObj); // show category list
         }else{

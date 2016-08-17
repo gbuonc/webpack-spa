@@ -28,7 +28,7 @@ var articles = {
         var slides = app.currentIssue.contents[routeObj.cat].articles;
         var articleTemplate = require('raw!../../partials/article_detail.tpl');
         var template = new t(articleTemplate);
-        // reset carousel by removing existing event listeners on swipeview
+        // remove existing event listeners on swipeview carousel instance
         // by cloning and replacing its wrapper
         var el = document.getElementById('article-detail'),
         elClone = el.cloneNode(true);
@@ -65,7 +65,7 @@ var articles = {
                 }
             break;
         }
-        swipeview.onFlip(function(){
+        swipeview.onFlip(function(a){
             var $currentSlide = $('.swipeview-active');
             var currentIndex = $currentSlide[0].dataset.upcomingPageIndex;
         	for (var i=0; i<3; i++) {
@@ -79,12 +79,10 @@ var articles = {
             videos.init();
             carousels.init();
             adv.setupDFPModules();
-            setTimeout(function(){
-                // change url via location href for sharing purposes with a timeout for performance reasons
-                var id = app.currentIssue.contents[routeObj.cat].articles[currentIndex].id;
-                var u = app.currentIssue.contents[routeObj.cat].articles[currentIndex].url;
-                location.href='/#/'+app.currentIssue.id+'/'+routeObj.cat+'/'+id+'/?a='+u;
-            }, 500);
+            var id = app.currentIssue.contents[routeObj.cat].articles[currentIndex].id;
+            var u = app.currentIssue.contents[routeObj.cat].articles[currentIndex].url;
+            var addr = '#/'+app.currentIssue.id+'/'+routeObj.cat+'/'+id+'/?a='+u;
+            history.replaceState({'path': history.state.path}, null, addr);
         });
         articles.toggleListVisibility('none');
     },
