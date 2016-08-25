@@ -1,6 +1,9 @@
 {
-  "name": "Il Fatto Quotidiano Progressive WebApp",
+  "name": "Il Fatto Quotidiano",
   "short_name": "Il Fatto Quotidiano",
+  "gcm_sender_id": "374317145590",
+  "gcm_user_visible_only": true,
+  "permissions": ["gcm"],
   "start_url": "/",
   "scope":"/",
   "display": "standalone",

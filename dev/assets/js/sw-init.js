@@ -1,5 +1,40 @@
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js').then(function(reg) {
+
+    // Are Notifications supported in the service worker?
+    if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
+        console.warn('Notifications aren\'t supported.');
+    }
+    // Check the current Notification permission.
+    // If its denied, it's a permanent block until the
+    // user changes the permission
+    if (Notification.permission === 'denied') {
+      console.warn('The user has blocked notifications.');
+    }
+    // Check if push messaging is supported
+    if (!('PushManager' in window)) {
+      console.warn('Push messaging isn\'t supported.');
+    }
+
+    // push messaging
+    reg.pushManager.subscribe({
+        userVisibleOnly: true
+    }).then(function(sub) {
+        // try to send an example push message to this client (CHROME only)
+        var pushServer = 'https://android.googleapis.com/gcm/send/'; // google cloud messaging server
+        var clientId = sub.endpoint.split(pushServer)[1]; // get id from endpoint (gcm only)
+        console.log('endpoint:', sub.endpoint, 'cliendId', clientId);
+        $.ajax({
+            type: 'POST',
+            url: 'https://android.googleapis.com/gcm/send',
+            contentType: 'application/json',
+            headers:{'Authorization':'key=AIzaSyCCC1_DFCHTubarUIof-Xs--g98bJD8efA'}, // firebase auth key
+            data: JSON.stringify({
+                "registration_ids" : [clientId]
+            })
+        })
+    });
+
     // updatefound is fired if service-worker.js changes.
     reg.onupdatefound = function() {
       var installingWorker = reg.installing;
@@ -30,4 +65,5 @@ if ('serviceWorker' in navigator) {
   }).catch(function(e) {
     console.error('Error during service worker registration:', e);
   });
+
 }

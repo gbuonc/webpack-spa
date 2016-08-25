@@ -83,7 +83,7 @@ function parse(e){for(var t,r=[],n=0,o=0,a="";null!=(t=PATH_REGEXP.exec(e));){va
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["bundle.js","1696ec902631d6e338d2d10dd4e05f47"],["index.html","6210e7df1d1fbd9595ccaea6921c57ba"],["static/css/app.css","601766f53d360a95be32ea868df3d34e"],["static/fonts/open-sans-condensed/bold.woff","cc97fba7940eb46fa9f68dce88999d87"],["static/fonts/open-sans-condensed/light-italic.woff","846a381b14ff05101914aeab49c289b6"],["static/fonts/open-sans-condensed/light.woff","b01901d6892382054e8567356cb69e49"],["static/img/icon.png","d41d8cd98f00b204e9800998ecf8427e"],["static/img/splash.png","180225016622e33c415d2e921a893974"]];
+var PrecacheConfig = [["bundle.js","17edd1c78c6f1fc40f94aae92e164e63"],["index.html","6210e7df1d1fbd9595ccaea6921c57ba"],["static/css/app.css","601766f53d360a95be32ea868df3d34e"],["static/fonts/open-sans-condensed/bold.woff","cc97fba7940eb46fa9f68dce88999d87"],["static/fonts/open-sans-condensed/light-italic.woff","846a381b14ff05101914aeab49c289b6"],["static/img/splash.png","d41d8cd98f00b204e9800998ecf8427e"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -307,11 +307,48 @@ self.addEventListener('fetch', function(event) {
   }
 });
 
+self.addEventListener('push', function(event) {
+    console.log('Push message received ', event);
+    event.waitUntil(
+        fetch('./test.json').then(function(response) {
+            return response.text();
+        })
+        .then(function(payload){
+            console.log(payload, typeof(payload));
+            var resp = JSON.parse(payload);
+            self.registration.showNotification(
+                resp.title, {
+                    body: resp.body,
+                    icon: 'static/img/icon.png',
+                    tag: 'ifqpwa'
+                }
+            );
+        })
+    );
+});
+self.addEventListener('notificationclick', function(event) {
+    console.log('Notification click: tag ', event.notification.tag);
+    event.notification.close();
+    var url = 'http://www.ilfattoquotidiano.it';
+    event.waitUntil(
+        clients.matchAll({
+            type: 'window'
+        })
+        .then(function(windowClients) {
+            for (var i = 0; i < windowClients.length; i++) {
+                var client = windowClients[i];
+                if (client.url === url && 'focus' in client) {
+                    return client.focus();
+                }
+            }
+            if (clients.openWindow) {
+                return clients.openWindow(url);
+            }
+        })
+    );
+});
 
 // Runtime cache configuration, using the sw-toolbox library.
 
 toolbox.router.get(/\.json$/, toolbox.networkFirst, {"cache":{"name":"json-cache","debug":true}});
 toolbox.router.get(/\.jpg$/, toolbox.cacheFirst, {"cache":{"maxEntries":100,"name":"articles-cache","debug":true}});
-
-
-
