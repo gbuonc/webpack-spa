@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# 272ac8424ef522650ab5
+
+dev/bundle.js
+
+CACHE:
+bundle.js
+
+NETWORK:
+*
+
+SETTINGS:
+prefer-online

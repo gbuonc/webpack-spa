@@ -45,6 +45,7 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
 .main-tabs{
     height: 35px;
     background: $red;
+    overflow: hidden;
 }
 .header-logo{
     position: absolute;
@@ -58,10 +59,9 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
 }
 .tab-navigation{
     position: fixed;
-    left:0;
     top: 0px;
     height: 35px;
-    width: 100%;
+    max-width: 100%;
     font-size: 15px;
     z-index: 4;
     overflow: hidden;
@@ -71,7 +71,7 @@ h1{font-family: georgia, 'open sans', sans-serif; line-height: 1.1; font-weight:
 .tab-toggle{
     font-family: 'open sans', sans-serif;;
     width: auto;
-    padding: 0 15px;
+    padding: 0 8px;
     background: $red;
     line-height: 35px;
     border-bottom:3px solid $red;

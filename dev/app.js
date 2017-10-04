@@ -46,13 +46,13 @@ onlineReq.then(function(resp){
     utils.log('working with remote json');
     bootstrap(resp);
 }, function(err){
-    console.log(err);
+    utils.log(err);
     // something went wrong, fallback to localstorage
     offlineReq.then(function(resp){
         utils.log('error retrieving data online, working with local json');
         bootstrap(resp);
     }).catch(function(err){
-        console.log(err);
+        utils.log(err);
         offline.showErrorPage();
         utils.log('no local/remote data available');
     });
